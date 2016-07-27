@@ -3,8 +3,10 @@ Use function argument to inject in the $scope object and the mainServ service fi
 
 angular.module("AudioCurator").controller("mainCtrl", function($scope, mainServ) {
 
-  $scope.clientId = 93b670379c03c10be221ed90ee118f93;
-  $scope.clientSecret = 87b74a7dd855b8cb9ec10a533be05848;
+  $scope.name = mainServ.name;
+
+  $scope.clientId = mainServ.clientId;
+  $scope.clientSecret = mainServ.clientSecret;
   
   $scope.clientStream;
 
@@ -32,7 +34,7 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, mainServ)
 	})
   }
 
-  $scope.getPosts = function(){
+  $scope.displayPosts = function(){
     mainServ.getPosts()
 
   .then(function(res){
@@ -42,7 +44,7 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, mainServ)
   })
   }
   //call getPosts when page loads
-  $scope.getPosts();
+  $scope.displayPosts();
 
 
 });

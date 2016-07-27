@@ -12,11 +12,14 @@ module.exports = {
   },
   read: function(req, res) {
     postModel
-    .find(req.query)
+    .find(
+      // req.query
+      )
     .exec(function (err, result) {
       if (err) {
         res.send(err);
       }
+      console.log(result);
       res.send(result);
     });
   },

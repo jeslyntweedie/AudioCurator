@@ -9,9 +9,11 @@ So when creating function variables, be sure to use the 'this' keyword. */
 
 angular.module("AudioCurator").service("mainServ", function($http) {
 
+	this.userName = "chalice";
+	this.clientId = '93b670379c03c10be221ed90ee118f93';
+    this.clientSecret = '87b74a7dd855b8cb9ec10a533be05848';
 
-
-	this.getClientStream = function(clientId){
+/*	this.getClientStream = function(clientId){
 
 	  	var key = clientId;
 
@@ -23,7 +25,7 @@ angular.module("AudioCurator").service("mainServ", function($http) {
 	  		return res.data;
 	  	});
 
-	};
+	};*/
 
 	this.postBlog = function(newPost){
 	  	var post = {
@@ -31,7 +33,7 @@ angular.module("AudioCurator").service("mainServ", function($http) {
 	  	};
 	  	return $http({
 	  		method: "POST",
-	  		url: "/",
+	  		url: "/post",
 	  		data: post
 	  	}).then(function(res){
 	  		console.log(res);
@@ -44,13 +46,14 @@ angular.module("AudioCurator").service("mainServ", function($http) {
 
 	  	return $http({
 			method: "GET",
-			url: "/"
+			url: "/post"
 		}).then(function(res){
-			console.log(res);
+			console.log(res.data);
 			return res.data;
 		})
 
 	};
 
-
 });
+
+

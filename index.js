@@ -12,10 +12,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(express.static(__dirname + '/public'));
 
-app.post('/', postCtrl.create);
-app.get('/', postCtrl.read);
-app.put('/:id', postCtrl.update);
-app.delete('/', postCtrl.delete);
+app.post('/post', postCtrl.create);
+app.get('/post', postCtrl.read);
+app.put('/post/:id', postCtrl.update);
+app.delete('/post/:id', postCtrl.delete);
 
 var mongoUri = "mongodb://localhost:27017/AudioCurator";
 mongoose.connect(mongoUri);
