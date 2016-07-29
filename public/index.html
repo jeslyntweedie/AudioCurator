@@ -41,7 +41,9 @@
         <input type="text" ng-model="newBlogPost">
     <button type = "submit">Submit</button> </form>
 
+
    <h4>{{newBlogPost}}</h4>
+
 
 
       Search<input type ="text" ng-model="search"/>
@@ -61,6 +63,14 @@
         <button ng-show="readytodelete" ng-click="readytodelete=false">cancel</button>
         <button ng-show="readytodelete" ng-click="remove(post._id)">delete</button>
     </div>
+    <div
+      class="fb-like"
+      data-share="true"
+      data-width="450"
+      data-show-faces="true">
+    </div>
+
+    
 
     
 
@@ -73,5 +83,6 @@
     <script src="./mainServ.js" type="text/javascript"></script>
     <script src="./SoundCloudServ.js" type="text/javascript"></script>
     <script src="https://connect.soundcloud.com/sdk/sdk-3.1.2.js"></script>
+    
   </body>
 </html>
