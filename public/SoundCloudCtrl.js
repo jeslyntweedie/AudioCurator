@@ -2,6 +2,7 @@ angular.module("AudioCurator").controller("SoundCloudCtrl", function($scope, Sou
 
   $scope.connectSoundCloud = function(){
     SoundCloudServ.connect();
+    
   }
 
 
