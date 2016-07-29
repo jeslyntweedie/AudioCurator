@@ -16,6 +16,27 @@
 
   <body ng-cloak ng-controller="mainCtrl">
 
+    <div ng-controller="SoundCloudCtrl">
+    <!-- <input type="submit" ng-controller="loginCtrl" ng-click="auth.signin()" /> -->
+    <!-- <img src="http://connect.soundcloud.com/2/btn-connect-s.png"> -->
+    <p style="width: 515px;">
+      <!-- <img src="http://connect.soundcloud.com/2/btn-connect-sc-s.png">
+      <img src="http://connect.soundcloud.com/2/btn-connect-s.png">
+      <img src="http://connect.soundcloud.com/2/btn-disconnect-s.png">
+      <img src="http://connect.soundcloud.com/2/btn-connect-sc-m.png">
+      <img src="http://connect.soundcloud.com/2/btn-connect-m.png">
+      <img src="http://connect.soundcloud.com/2/btn-disconnect-m.png">
+      <img src="http://connect.soundcloud.com/2/btn-connect-sc-l.png"> -->
+      <button type="button" ng-click="connectSoundCloud()">
+        <img style="border: 3px solid green;" src="http://connect.soundcloud.com/2/btn-connect-l.png">
+      </button>
+      <button type="button" ng-click="disconnectSoundCloud()">
+        <img style="border: 3px solid green;" src="http://connect.soundcloud.com/2/btn-disconnect-l.png">
+      </button>
+    </p>
+    </div>
+	  
+
     <form ng-submit="postBlog(newBlogPost)">
         <input type="text" ng-model="newBlogPost">
     <button type = "submit">Submit</button> </form>
@@ -39,30 +60,10 @@
         <button ng-hide="readytodelete" ng-click="readytodelete=true">delete</button>
         <button ng-show="readytodelete" ng-click="readytodelete=false">cancel</button>
         <button ng-show="readytodelete" ng-click="remove(post._id)">delete</button>
-
-    <div ng-controller="SoundCloudCtrl">
-    <!-- <input type="submit" ng-controller="loginCtrl" ng-click="auth.signin()" /> -->
-    <!-- <img src="http://connect.soundcloud.com/2/btn-connect-s.png"> -->
-    <p style="width: 515px;">
-      <!-- <img src="http://connect.soundcloud.com/2/btn-connect-sc-s.png">
-      <img src="http://connect.soundcloud.com/2/btn-connect-s.png">
-      <img src="http://connect.soundcloud.com/2/btn-disconnect-s.png">
-      <img src="http://connect.soundcloud.com/2/btn-connect-sc-m.png">
-      <img src="http://connect.soundcloud.com/2/btn-connect-m.png">
-      <img src="http://connect.soundcloud.com/2/btn-disconnect-m.png">
-      <img src="http://connect.soundcloud.com/2/btn-connect-sc-l.png"> -->
-      <button type="button" ng-click="connectSoundCloud()">
-        <img style="border: 3px solid green;" src="http://connect.soundcloud.com/2/btn-connect-l.png">
-      </button>
-      <button type="button" ng-click="disconnectSoundCloud()">
-        <img style="border: 3px solid green;" src="http://connect.soundcloud.com/2/btn-disconnect-l.png">
-      </button>
-    </p>
     </div>
-	  
 
-    </div>
-          
+    
+
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 

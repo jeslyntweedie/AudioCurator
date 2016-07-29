@@ -35,13 +35,15 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, mainServ)
 
 
   $scope.getStream = function(clientId){
-  	mainServ.getClientStream(clientId)
 
-	.then(function(res){
+    mainServ.getClientStream(clientId)
 
-	  $scope.clientStream = res;
+  .then(function(res){
 
-	})
+    $scope.clientStream = res;
+
+  })
+
   }
 
   var displayPosts = function(){
