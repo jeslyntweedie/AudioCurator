@@ -1,3 +1,4 @@
+
 /*Setup mainCtrl.js by associating app name using .module method, and passing controller name to .controller method
 Use function argument to inject in the $scope object and the mainServ service file.*/
 
@@ -68,3 +69,4 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, mainServ)
   }
 
 });
+

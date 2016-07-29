@@ -1,3 +1,4 @@
+
 //MODEL: communicates to controller
 
 /*Setup mainServ.js by associating app name using .module method, and passing service name to .service method.
@@ -67,5 +68,6 @@ angular.module("AudioCurator").service("mainServ", function($http) {
 	}
 
 });
+
 
 

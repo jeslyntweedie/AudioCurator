@@ -7,9 +7,13 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="./styles.css" type="text/css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="http://connect.soundcloud.com/sdk.js"></script>
     <title>Audio Curator</title>
+    
   </head>
+
    <!-- Use the "ng-controller" directive to associate index.html with controller(mainCtrl) -->
+
   <body ng-cloak ng-controller="mainCtrl">
 
     <form ng-submit="postBlog(newBlogPost)">
@@ -35,6 +39,28 @@
         <button ng-hide="readytodelete" ng-click="readytodelete=true">delete</button>
         <button ng-show="readytodelete" ng-click="readytodelete=false">cancel</button>
         <button ng-show="readytodelete" ng-click="remove(post._id)">delete</button>
+
+    <div ng-controller="SoundCloudCtrl">
+    <!-- <input type="submit" ng-controller="loginCtrl" ng-click="auth.signin()" /> -->
+    <!-- <img src="http://connect.soundcloud.com/2/btn-connect-s.png"> -->
+    <p style="width: 515px;">
+      <!-- <img src="http://connect.soundcloud.com/2/btn-connect-sc-s.png">
+      <img src="http://connect.soundcloud.com/2/btn-connect-s.png">
+      <img src="http://connect.soundcloud.com/2/btn-disconnect-s.png">
+      <img src="http://connect.soundcloud.com/2/btn-connect-sc-m.png">
+      <img src="http://connect.soundcloud.com/2/btn-connect-m.png">
+      <img src="http://connect.soundcloud.com/2/btn-disconnect-m.png">
+      <img src="http://connect.soundcloud.com/2/btn-connect-sc-l.png"> -->
+      <button type="button" ng-click="connectSoundCloud()">
+        <img style="border: 3px solid green;" src="http://connect.soundcloud.com/2/btn-connect-l.png">
+      </button>
+      <button type="button" ng-click="disconnectSoundCloud()">
+        <img style="border: 3px solid green;" src="http://connect.soundcloud.com/2/btn-disconnect-l.png">
+      </button>
+    </p>
+    </div>
+	  
+
     </div>
 
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -42,6 +68,9 @@
 
     <script src="./app.js" type="text/javascript"></script>
     <script src="./mainCtrl.js" type="text/javascript"></script>
+    <script src="./SoundCloudCtrl.js" type="text/javascript"></script>
     <script src="./mainServ.js" type="text/javascript"></script>
+    <script src="./SoundCloudServ.js" type="text/javascript"></script>
+    <script src="https://connect.soundcloud.com/sdk/sdk-3.1.2.js"></script>
   </body>
 </html>
