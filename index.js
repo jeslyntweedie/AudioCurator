@@ -1,29 +1,68 @@
+// ---------------- DEPENDENCIES ----------------
 var express   = require('express'),
-bodyParser  = require('body-parser'),
-cors        = require('cors'),
-mongoose    = require('mongoose');
+  bodyParser  = require('body-parser'),
+  cors        = require('cors'),
+  mongoose    = require('mongoose'),          // NoSQL DB connector
+  passport    = require('passport'),          // Handles authentication
+  session     = require('express-session');   // Saves session data and cookies
 
-var postCtrl = require('./postCtrl');
+// ---------------- CONTROLLERS ----------------
+var postCtrl  = require('./controllers/postCtrl'); // Controller functions for posting blog entries
+var userCtrl  = require('./controllers/userCtrl'); // COntroller functions for creating or modifying users
+var config    = require('./passport/config');      // Secret for express-session. Probably should find out how to randomly generate on the first run of the program
 
+// Create an instance of Express
 var app = express();
 
+// ---------------- MIDDLEWARE ----------------
+// Initialize the middleware. These will perform their given tasks on each request and response that passes through the server.
+app.use(session(config));         // Set session secret
+app.use(passport.initialize());   // Initialize Passport
+app.use(passport.session());      // Configure session through passport. Starts session on login
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public')); // Makes all of our files in the /public directory available to the internet
 
-app.post('/post', postCtrl.create);
-app.get('/post', postCtrl.read);
-app.put('/post/:id', postCtrl.update);
-app.delete('/post/:id', postCtrl.delete);
 
-var mongoUri = "mongodb://localhost:27017/AudioCurator";
-mongoose.connect(mongoUri);
-mongoose.connection.on('error', console.error.bind(console, 'connection error'));
-mongoose.connection.once('open', function(){
-  console.log("Connected to mongoDB");
+// ---------------- ROUTES ----------------
+// This route handles creating new users AND authenticating them. I need to split this into two seperate routes.
+app.post('/auth', passport.authenticate('local-signup'), userCtrl.login);
+// app.post('/signup', passport.authenticate('local-signup'), userCtrl.XXXXXXXXXXXXXXXX);
+// app.post('/login', passport.authenticate('local-signup'), userCtrl.XXXXXXXXXXXXXXXX);
+
+// These routes are for modifying or retrieving info about the users in the database.
+app.get('/user/me', userCtrl.getMe);        // Gets info about the logged in user making the request
+app.get('/user/logout', userCtrl.logout);   // Logs out the active user and ends the session
+app.post('/user', userCtrl.create);         // Create a user
+app.get('/user', userCtrl.getall);          // Get list of all users
+app.get('/user/:id', userCtrl.read);        // Get info on a single user
+app.put('/user/:id', userCtrl.update);      // Update a user's info
+app.delete('/user/:id', userCtrl.delete);   // Remove a user from the database
+
+// This route is for testing purposes and could be removed later. It checks whether a user is authenticated (look in the browser console)
+app.get('/loggedin', function(req, res) {   // Route to test if user is authenticated
+  console.log('user is authenticated: ', req.isAuthenticated());
+  res.send(req.isAuthenticated() ? req.user : 'NOT LOGGED IN');
 });
 
-app.listen(8000, function(){
-  console.log("listening to 8000 ");
+// These routes are for posting and updating blog posts on the site.
+app.post('/post', postCtrl.create);         // Create new blog entry in the database
+app.get('/post', postCtrl.read);            // Get all blog posts
+app.put('/post/:id', postCtrl.update);      // Edit a blog entry
+app.delete('/post/:id', postCtrl.delete);   // Remove a blog from teh database
+
+
+// ---------------- CONNECT TO MONGODB ----------------
+var mongoUri = "mongodb://localhost:27017/AudioCurator";    // Set database to 'AudioCurator' on local MongoDB instance
+mongoose.connect(mongoUri);                                 // Connect to database specified on previous line
+mongoose.connection.on('error', console.error.bind(console, 'connection error'));     // If error, inform us!
+mongoose.connection.once('open', function(){
+  console.log("Connected to mongoDB");      // Confirm that we have connected to MongoDB in the console when app is started
+});
+
+
+// ---------------- BEGIN TAKING NETWORK REQUESTS ----------------
+app.listen(8000, function(){                // Begin listening on selected port
+  console.log("listening to 8000 ");        // Confirm port to user in the console when the app is started
 });
