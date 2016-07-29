@@ -4,6 +4,8 @@ Use function argument to inject in the $scope object and the mainServ service fi
 angular.module("AudioCurator").controller("mainCtrl", function($scope, mainServ) {
 
   $scope.name = mainServ.name;
+  $scope.readytodelete = false;
+  $scope.readytoupdate = false;
 
   $scope.clientId = mainServ.clientId;
   $scope.clientSecret = mainServ.clientSecret;
@@ -19,7 +21,8 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, mainServ)
     .then(function(res){
 
     $scope.blogPost = res;
-    $scope.getPosts();
+    displayPosts();
+    $scope.newBlogPost = "";
   })
   }
 
@@ -34,17 +37,28 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, mainServ)
 	})
   }
 
-  $scope.displayPosts = function(){
+  var displayPosts = function(){
     mainServ.getPosts()
-
-  .then(function(res){
-
-    $scope.postHistory = res;
-
-  })
+    .then(function(res){
+      $scope.postHistory = res;
+    })
   }
   //call getPosts when page loads
-  $scope.displayPosts();
+  displayPosts();
 
+  $scope.remove = function(id) {
+    mainServ.remove(id)
+    .then(function(res){
+      displayPosts();
+    })
+
+  }
+
+  $scope.update =function(post) {
+    mainServ.update(post)
+    .then(function(res){
+      displayPosts();
+    })
+  }
 
 });

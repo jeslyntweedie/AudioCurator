@@ -13,23 +13,11 @@ angular.module("AudioCurator").service("mainServ", function($http) {
 	this.clientId = '93b670379c03c10be221ed90ee118f93';
     this.clientSecret = '87b74a7dd855b8cb9ec10a533be05848';
 
-/*	this.getClientStream = function(clientId){
-
-	  	var key = clientId;
-
-	  	return $http({
-	  		method: "GET" 
-	  		url: 'http://api.soundcloud.com/users/' + username + '/tracks.json?client_id=       ' + key
-	  	}).then(function(res){
-	  		console.log(res.data);
-	  		return res.data;
-	  	});
-
-	};*/
-
 	this.postBlog = function(newPost){
+		var today = "[" + new Date().toISOString().slice(0, 10) + "] - " + new Date().toISOString().slice(11, 19);
 	  	var post = {
-	  		body: newPost
+	  		body: newPost,
+	  		date: today
 	  	};
 	  	return $http({
 	  		method: "POST",
@@ -53,6 +41,27 @@ angular.module("AudioCurator").service("mainServ", function($http) {
 		})
 
 	};
+
+	this.remove = function(id) {
+		return $http({
+			method: "DELETE", 
+			url:"/post/" + id
+		}).then(function(res){
+			console.log(res.data);
+			return res.data;
+		})
+	};
+
+	this.update = function(post) {
+		return $http({
+			method: "PUT",
+			url:"/post/" + post._id,
+			data: post
+		}).then(function(res){
+			console.log(res.data);
+			return res.data;
+		})
+	}
 
 });
 

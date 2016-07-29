@@ -44,11 +44,13 @@ module.exports = {
   },
   delete: function(req, res){
     postModel
-    .remove(function(err, result){
+    .findByIdAndRemove(req.params.id, req.body, function(err, result){
       if (err) {
         res.send(err);
       }
       res.send(result);
     });
   }
+
+
 };

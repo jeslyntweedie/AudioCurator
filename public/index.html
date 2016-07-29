@@ -11,17 +11,28 @@
   </head>
    <!-- Use the "ng-controller" directive to associate index.html with controller(mainCtrl) -->
   <body ng-cloak ng-controller="mainCtrl">
+
     <form ng-submit="postBlog(newBlogPost)">
         <input type="text" ng-model="newBlogPost">
-    </form>
-    <h4>{{newBlogPost}}</h4>
+    <button type = "submit">Submit</button> </form>
 
-    <p>{{blogPost}}</p>
-    <h1>{{name}}</h1>
-        
+   <h4>{{newBlogPost}}</h4>
+
+
+      <input type ="text" ng-model="search"/>
+      
     <!-- <button type="button" ng-click="displayPosts()">Click here to display blog posts.</button> -->
-    <div ng-repeat="post in postHistory"> 
-        <h4>Blog Post: {{post.body}}</h4>
+    <div ng-repeat="post in postHistory | orderBy: '-date' | filter: search"> 
+        <h4>Blog Post: 
+        <span ng-hide="readytoupdate" ng-dblclick="readytoupdate =true">
+        {{post.body}}
+        </span>
+        <form ng-show="readytoupdate" ng-submit="update(post)">
+        <input ng-model= "post.body"/><input type="submit"/></form>
+        </h4>
+        <button ng-hide="readytodelete" ng-click="readytodelete=true">delete</button>
+        <button ng-show="readytodelete" ng-click="readytodelete=false">abort</button>
+        <button ng-show="readytodelete" ng-click="remove(post._id)">delete</button>
     </div>
 
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
