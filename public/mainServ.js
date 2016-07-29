@@ -15,10 +15,13 @@ angular.module("AudioCurator").service("mainServ", function($http) {
 
 	this.postBlog = function(newPost){
 		var today = "[" + new Date().toISOString().slice(0, 10) + "] - " + new Date().toISOString().slice(11, 19);
+		var worddate = (new Date()).toString().slice(4, 15);
 	  	var post = {
 	  		body: newPost,
-	  		date: today
+	  		date: today,
+	  		displaydate: worddate
 	  	};
+	  	console.log(post);
 	  	return $http({
 	  		method: "POST",
 	  		url: "/post",

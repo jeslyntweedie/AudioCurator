@@ -4,6 +4,7 @@ Use function argument to inject in the $scope object and the mainServ service fi
 angular.module("AudioCurator").controller("mainCtrl", function($scope, mainServ) {
 
   $scope.name = mainServ.name;
+
   $scope.readytodelete = false;
   $scope.readytoupdate = false;
 
@@ -15,16 +16,21 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, mainServ)
   $scope.blogPost;
   $scope.postHistory;
 
+
   $scope.postBlog = function(newPost){
-    mainServ.postBlog(newPost)
+    if (newPost){
 
-    .then(function(res){
+      mainServ.postBlog(newPost)
+      .then(function(res){
+        $scope.blogPost = res;
+        displayPosts();
+        $scope.newBlogPost = "";
 
-    $scope.blogPost = res;
-    displayPosts();
-    $scope.newBlogPost = "";
-  })
+      })
+    } else {
+      alert("Please enter a blog post");
   }
+};
 
 
   $scope.getStream = function(clientId){
