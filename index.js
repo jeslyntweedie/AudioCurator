@@ -14,6 +14,9 @@ var config    = require('./passport/config');      // Secret for express-session
 // Create an instance of Express
 var app = express();
 
+// Configure Passport by passing an instance of itself to the configuration file containing strategies, etc.
+require('./passport/passport')(passport);
+
 // ---------------- MIDDLEWARE ----------------
 // Initialize the middleware. These will perform their given tasks on each request and response that passes through the server.
 app.use(session(config));         // Set session secret
@@ -54,7 +57,7 @@ app.delete('/post/:id', postCtrl.delete);   // Remove a blog from teh database
 
 
 // This is how to authenticate users attempting to access an API route or page (but it won't block a state in a SPA) - that must be done in logic on the front end. Theoretically a user could get our admin page, but shouldn't be able to use it to modify any data.
-// I will delete the route later after applying the ideas to our blog post routes.
+// I will delete the route later after applying the principles to our blog post routes.
 app.get('/admin', function(req, res, next){
   console.log ("req.isAuthenticated: ", req.isAuthenticated());
   if (req.isAuthenticated()){
