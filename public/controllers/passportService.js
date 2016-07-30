@@ -1,0 +1,50 @@
+angular.module("AudioCurator").service("passportService", function($http){
+
+
+  // this.nouser = "";
+  this.getUser = function (user) {
+    return $http ({
+      method: "GET",
+      url: '/user/me'
+    }).then(function (response) {
+      console.log('who am i?', response.data);
+      return response.data;
+    });
+  };
+  this.getUsers = function () {
+    return $http ({
+      method: "GET",
+      url: '/user'
+    }).then(function (response){
+      return response.data;
+    });
+  };
+  this.changeUser = function (user) {
+    return $http ({
+      method: "PUT",
+      url: '/user/' + user._id,
+      data: user
+    }).then(function (response) {
+      console.log(response);
+      return response.data;
+    });
+  };
+  this.logout = function () {
+    return $http ({
+      method: 'GET',
+      url: '/user/logout'
+    })
+    .then(function(response){
+      return response;
+    });
+  };
+  this.deleteUser = function (user) {
+    return $http ({
+      method: "DELETE",
+      url: '/user/' + user._id,
+    }).then(function (response) {
+      return response.data;
+    });
+  };
+
+});

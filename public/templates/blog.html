@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="AudioCurator">
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+  	<title>AudioCurator</title>
+  </head>
+
+  <body ng-controller="mainCtrl">
+
+    <nav>
+
+       <div class="nav-wrapper grey lighten-2">
+          <div class = "title">
+            <a href="#" class="brand-logo center">
+            <div class = "logo">
+              <img src= "https://i.imgsafe.org/a37fb326b2.png">
+            </div>
+            </a>
+          </div>
+
+          <ul id="nav-mobile" class="right hide-on-med-and-down" ng-click='showAuth = showAuth ? false : true'>
+            <li>
+              <div class="login">
+                <a>Login</a>
+              </div>
+            </li>
+          </ul>
+       </div>
+
+    </nav>
+
+    <h1> Welcome to the home page! </h1>
+
+
+    <!-- Proof of concept login and register forms here. Feel free to alter them. I copied this (and some styles) from an old "dogs" project -->
+    <div class="auth" ng-show="showAuth" ng-controller='passportCtrl'>
+      <div class="login" ng-show="loginOrRegister">
+        <form ng-submit="login(user)">
+          <h1>Log In Here</h1>
+          <input ng-model='user.email' type="text" placeholder="Email" value="">
+          <input ng-model='user.password' type="password" placeholder="Password" value=""><br>
+          <input class="loginbutton" ng-click='login(user)' type="submit" value="Login">
+          <a ng-click='loginOrRegister=false'>Create New Account Instead</a>
+        </form>
+      </div>
+      <div class="register" ng-hide="loginOrRegister">
+        <form ng-submit="login(newUser)">
+          <h1>Register Now!</h1>
+          <input ng-model='newUser.displayName' type="text" placeholder="Display Name" value=""><br>
+          <input ng-model='newUser.email' type="text" placeholder="Email" value="">
+          <input ng-model='newUser.password' type="password" placeholder="Password" value=""><br>
+          <input class="registerbutton" ng-click='login(newUser)' type="submit" value="Register & Login">
+          <a ng-click='loginOrRegister=true'>Log In Instead</a>
+        </form>
+      </div>
+
+
+  </body>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+</html>

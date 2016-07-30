@@ -8,7 +8,7 @@ angular.module("AudioCurator").service("SoundCloudServ", function($http) {
 this.connect = function(){
 	SC.initialize({
 	  client_id: '93b670379c03c10be221ed90ee118f93',
-	  redirect_uri: 'http://localhost:8000/callback.html'
+	  redirect_uri: 'http://localhost:8000/#/admin'
 	});
 
 	// initiate login popup
@@ -50,7 +50,7 @@ this.getTracks = function(userId){
 	  		console.log('mainServ line 47', res.data);
 	  		return res.data;
 	  	})
- 		
+
  	};*/
 
 
