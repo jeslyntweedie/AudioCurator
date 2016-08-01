@@ -7,7 +7,8 @@ angular.module("AudioCurator", ['ui.router'])
       templateUrl: "./templates/blog.html"
     }).state("admin", {
       url: "/admin",
-      templateUrl: "./templates/admin.html"
+      templateUrl: "./templates/admin.html",
+      controller: "adminCtrl"
     });
 
     $urlRouterProvider.otherwise("/");
