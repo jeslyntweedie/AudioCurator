@@ -7,8 +7,8 @@ angular.module("AudioCurator").service("SoundCloudServ", function($http) {
 
 this.connect = function(){
 	SC.initialize({
-	  client_id: '93b670379c03c10be221ed90ee118f93',
-	  redirect_uri: 'http://localhost:8000/callback'
+	  client_id: clientId,
+	  redirect_uri: 'http://localhost:8000/callback.html'
 	});
 
 	// initiate login popup
