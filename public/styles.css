@@ -3,16 +3,12 @@
   }
 
   .title {
-  	/*font-size:30px;
-  	text-shadow: 3px 3px 3px black, 2px 2px 0px rgba(0,0,0,0.90);*/
+  	font-size:40px;
+  	text-shadow: 3px 3px 3px black, 2px 2px 0px rgba(0,0,0,0.90);
   }
 
   .login {
 
   }
 
-  .logo {
-  	margin-top:-250px;
-  	
-  }
 
