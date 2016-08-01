@@ -2,16 +2,16 @@
 /*Setup mainCtrl.js by associating app name using .module method, and passing controller name to .controller method
 Use function argument to inject in the $scope object and the mainServ service file.*/
 
-angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScope, mainServ) {
+angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $state, mainServ, passportService) {
 
   // This variable will hold info about the currently logged in user and will be falsy if no user is been logged in.
-  $rootScope.loggedInUser = {};
+  $scope.loggedInUser = {};
 
   // Variable for showing or hiding login button. Logout button should display when this is false.
-  $rootScope.showLoginButton = true;
+  $scope.showLoginButton = true;
 
   // This variable controls whether the Login/Register form is displayed.
-  $rootScope.showAuthForm = false;
+  $scope.showAuthForm = false;
 
   // Toggles the value of the showAuthForm variable to display or hide the login form.
   $scope.toggleLoginView = function() {
@@ -22,7 +22,48 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScop
   // This variable determines which of the Login/Register forms is displayed. (true = login)
   $scope.loginOrRegister = true;
 
+  // This function calls /logout to log out the current user and clear session data.
+  $scope.logout = function() {
+    console.log('logout now!');
+    $http.get('/logout')
+      .then(function(res){
+        console.log('logged out!');
+        $scope.showLoginButton = true;               // Show login button and hide logout button.
+        $scope.loggedInUser = {};     // Set loggedInUser to empty object (will also cause login button to display again instead of logout).
+        $state.go('home');
+      })
+  };
 
+  // This function will get info about the logged in user if we need it.
+  $scope.getUser = function () {
+    mainServ.getUser()
+    .then(function(res){
+      console.log('Got user info: ', res);
+      $scope.user = res;
+    });
+  };
+
+  // This function initiates the login process when the login form is submitted.
+  $scope.login = function(user) {
+    $http.post('/login', user)
+      .then(function(res){
+        $scope.loggedInUser = res.config.data.email; // Sets loggedInUser to email of logged in user. Need to fix this to include displayName.
+        $scope.showLoginButton = false;          // Hide login button and show logout button.
+        $scope.showAuthForm = false;                 // Hide the auth form.
+        $state.go('admin');                          // Redirects to admin page after login.
+      })
+  };
+
+  // This is submitted by our registration form and sends a new user object to our /signup route which will test for a unique username and email, then create the user in the database and log them in.
+  $scope.register = function(user) {
+    $http.post('/signup', user)
+      .then(function(res){
+        console.log('/signup res', res);
+        $scope.showLoginButton = false;          // Hide login button and show logout button.
+        $scope.showAuthForm = false;                 // Hide the auth form
+        $state.go('admin');                          // Redirects to admin page after registration/login
+      })
+  };
 
   $scope.name = mainServ.name;
 
