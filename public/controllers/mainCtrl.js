@@ -2,16 +2,16 @@
 /*Setup mainCtrl.js by associating app name using .module method, and passing controller name to .controller method
 Use function argument to inject in the $scope object and the mainServ service file.*/
 
-angular.module("AudioCurator").controller("mainCtrl", function($scope, mainServ) {
+angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScope, mainServ) {
 
   // This variable will hold info about the currently logged in user and will be falsy if no user is been logged in.
-  $scope.loggedInUser = {};
+  $rootScope.loggedInUser = {};
 
   // Variable for showing or hiding login button. Logout button should display when this is false.
-  $scope.showLoginButton = true;
+  $rootScope.showLoginButton = true;
 
   // This variable controls whether the Login/Register form is displayed.
-  $scope.showAuthForm = false;
+  $rootScope.showAuthForm = false;
 
   // Toggles the value of the showAuthForm variable to display or hide the login form.
   $scope.toggleLoginView = function() {

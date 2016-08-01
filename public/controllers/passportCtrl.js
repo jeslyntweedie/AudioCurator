@@ -1,4 +1,4 @@
-angular.module("AudioCurator").controller("passportCtrl", function($scope, $http, $state, mainServ, passportService){
+angular.module("AudioCurator").controller("passportCtrl", function($scope, $rootScope, $http, $state, mainServ, passportService){
 
   // This function will get info about the logged in user if we need it.
   $scope.getUser = function () {
@@ -13,9 +13,8 @@ angular.module("AudioCurator").controller("passportCtrl", function($scope, $http
   $scope.login = function(user) {
     $http.post('/login', user)
       .then(function(res){
-        $scope.loggedInUser = res.config.data.email; // Sets loggedInUser to email of logged in user. Need to fix this to include displayName.
-        $scope.showLoginButton = false;              // Hide login button and show logout button.
-        console.log($scope.showLoginButton);
+        $rootScope.loggedInUser = res.config.data.email; // Sets loggedInUser to email of logged in user. Need to fix this to include displayName.
+        $rootScope.showLoginButton = false;          // Hide login button and show logout button.
         $scope.showAuthForm = false;                 // Hide the auth form.
         $state.go('admin');                          // Redirects to admin page after login.
       })
@@ -26,7 +25,7 @@ angular.module("AudioCurator").controller("passportCtrl", function($scope, $http
     $http.post('/signup', user)
       .then(function(res){
         console.log('/signup res', res);
-        $scope.showLoginButton = false;              // Hide login button and show logout button.
+        $rootScope.showLoginButton = false;          // Hide login button and show logout button.
         $scope.showAuthForm = false;                 // Hide the auth form
         $state.go('admin');                          // Redirects to admin page after registration/login
       })
