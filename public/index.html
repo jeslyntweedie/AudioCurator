@@ -14,7 +14,7 @@
 
    <!-- Use the "ng-controller" directive to associate index.html with controller(mainCtrl) -->
 
-  <body ng-cloak ng-controller="mainCtrl" ng-controller='passportCtrl'>
+  <body ng-cloak ng-controller="mainCtrl" >
 
     <nav>
 
@@ -48,7 +48,7 @@
     </nav>
 
     <!-- Proof of concept login and register forms here. Feel free to alter them. I copied this (and some styles) from an old "dogs" project -->
-    <div class="auth" ng-show="showAuthForm" ng-controller='passportCtrl'>
+    <div class="auth" ng-show="showAuthForm">
       <div class="login" ng-show="loginOrRegister">
         <form ng-submit="login(user)">
           <h1>Log In Here</h1>
@@ -144,7 +144,6 @@
     <script src="./controllers/SoundCloudCtrl.js" type="text/javascript"></script>
     <script src="./controllers/mainServ.js" type="text/javascript"></script>
     <script src="./controllers/SoundCloudServ.js" type="text/javascript"></script>
-    <script src="./controllers/passportCtrl.js" type="text/javascript"></script>
     <script src="./controllers/passportService.js" type="text/javascript"></script>
     <script src="./controllers/adminCtrl.js" type="text/javascript"></script>
     <script src="https://connect.soundcloud.com/sdk/sdk-3.1.2.js"></script>

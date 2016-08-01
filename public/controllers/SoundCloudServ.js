@@ -1,14 +1,14 @@
 angular.module("AudioCurator").service("SoundCloudServ", function($http) {
 
 	var clientId = '93b670379c03c10be221ed90ee118f93';
-    var clientSecret = '87b74a7dd855b8cb9ec10a533be05848';
-    var URL = 'https://github.com/AudioCurator';
-    var userId = 43374421;
+  var clientSecret = '87b74a7dd855b8cb9ec10a533be05848';
+  var URL = 'https://github.com/AudioCurator';
+  var userId = 43374421;
 
 this.connect = function(){
 	SC.initialize({
-	  client_id: '93b670379c03c10be221ed90ee118f93',
-	  redirect_uri: 'http://localhost:8000/#/admin'
+	  client_id: clientId,
+	  redirect_uri: 'http://localhost:8000/callback.html'
 	});
 
 	// initiate login popup
