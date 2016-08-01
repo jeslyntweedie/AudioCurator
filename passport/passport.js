@@ -1,19 +1,23 @@
-var LocalStrategy = require('passport-local').Strategy; //Call in passport-local using the Strategy method, which is where all of the reserved methods for local auth are held
-var User = require('./../models/userModel.js');//Set up user model
+var LocalStrategy = require('passport-local').Strategy; //Call in passport-local's Strategy method, which is where all of the reserved methods for local auth are held
+var User = require('./../models/userModel.js'); // Require our user model
 
-module.exports = function(passport) { //call in passport as a parameter
+module.exports = function(passport) { // Call in passport as a parameter
 
-    passport.serializeUser(function(user, done) {//serialize user and passport stores information about the login and session of the user
+    // serializeUser prepares session data for transmission by stripping unnecessary user data. Some data such as passwords do not need to be (and shouldn't be) sent with every transmission. Only the mongo _id field is kept so that the rest of the data can be recovered later by deserialize user.
+    passport.serializeUser(function(user, done) {
         console.log("USER", user);
-        done(null, user.id);//sets info to id
+        done(null, user.id);                     // Save only the id
     });
 
-    passport.deserializeUser(function(id, done) {//deserializes to return user information after it has been serialized in a language that makes sense to us.
+
+    // Makes user data available to us in the form of req.user by finding the rest of the data attached to the mongo _id on the incoming request.
+    passport.deserializeUser(function(id, done) {
         console.log("ID", id);
-        User.findById(id, function(err, user) {//searches for info by id
-            done(err, user);
+        User.findById(id, function(err, user) {  // Uses the saved mongo _id to find the rest of the user data.
+            done(err, user);                     // This gets saved to req.user
         });
     });
+
 
     // Create strategy for local authentication
     passport.use('local-signup', new LocalStrategy({ // Name this new strategy 'local-signup'
@@ -21,29 +25,54 @@ module.exports = function(passport) { //call in passport as a parameter
         passwordField : 'password',
         passReqToCallback : true  //this makes its so we only need one callback function below
     },
-
     function(req, email, password, done) {
-        process.nextTick(function() { //waits until all previous code has completed then runs callback function. This is a node function.
-          User.findOne({'email': email}, function(err, user) { //find by email mongoose function
-              if (err) return done(err); //if there is an error return the error
-              if (user) { //if there is a valid user, verify password is correct
-                if (user.validPassword(password)) {
-                  console.log('Successful login');
-                    return done(null, user);
-                } else {
-                  console.log('Invalid email or password');
-                    return done(null, false);
-                }
-              } else { //otherwise, make a new user
-                  var newUser = new User(req.body);
-                  newUser.email    = email;
-                  newUser.password = newUser.generateHash(password); //hash password
-                  newUser.save(function(err) { //save to mongo
+        // asynchronous
+        // User.findOne wont fire unless data is sent back
+        process.nextTick(function() { // Waits until all previous code has completed then runs callback function. This is a node function.
+          User.findOne({'email': email}, function(err, user) { // Find-by-email mongoose function returns an error or a user object
+              if (err) return done(err);                       // If there is an error return the error
+              if (user) {                                      // If there is a valid user, verify password is correct
+                console.log('User already exists')             // Username or email has already been taken
+                return done(null, false);
+              } else {                                               // No user found, make a new user
+                  var newUser = new User(req.body);                  // Create our new user object to insert into the database
+                  newUser.email    = email;                          // User's email
+                  newUser.password = newUser.generateHash(password); // Save password in hashed form (plaintext isn't secure, obviously!)
+                  newUser.save(function(err) {                       // Save the new user to the database
                       if (err) throw err;
+                      console.log('Created new user');
                       return done(null, newUser);
                   });
               }
           });
         });
+    }));
+
+
+
+    // This strategy will handle login for returning users.
+    passport.use('local-login', new LocalStrategy({   // Name our new strategy 'local-login'
+        usernameField : 'email',   // This can be username, email, anything as long as you update all other instances of email on this file.
+        passwordField : 'password',
+        passReqToCallback : true   // This makes its so we only need one callback function below
+    },
+      function(req, email, password, done) {
+          process.nextTick(function() { // Waits until all previous code has completed then runs callback function. This is a node function.
+            User.findOne({'email': email}, function(err, user) {  // Find-by-email mongoose function returns an error or a user object
+                if (err) return done(err);                        // If there is an error return the error
+                if (user) {                                       // If there is a valid user, verify password is correct
+                  if (user.validPassword(password)) {  // Pass password to method we defined in userModel file to check if password matches
+                    console.log('Successful login');
+                      return done(null, user);                    // Success! Return user.
+                  } else {
+                    console.log('Invalid email or password');
+                      return done(null, false);                   // Bad password!
+                  }
+                } else {                               // If we get this far, it means the user was not found in our database
+                  console.log("User not found in the database");
+                  return done(null, false);
+                }
+            });
+          });
     }));
 };
