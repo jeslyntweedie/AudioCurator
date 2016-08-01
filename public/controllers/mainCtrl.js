@@ -4,6 +4,26 @@ Use function argument to inject in the $scope object and the mainServ service fi
 
 angular.module("AudioCurator").controller("mainCtrl", function($scope, mainServ) {
 
+  // This variable will hold info about the currently logged in user and will be falsy if no user is been logged in.
+  $scope.loggedInUser = {};
+
+  // Variable for showing or hiding login button. Logout button should display when this is false.
+  $scope.showLoginButton = true;
+
+  // This variable controls whether the Login/Register form is displayed.
+  $scope.showAuthForm = false;
+
+  // Toggles the value of the showAuthForm variable to display or hide the login form.
+  $scope.toggleLoginView = function() {
+    console.log("showAuthForm value", $scope.showAuthForm)
+    $scope.showAuthForm = $scope.showAuthForm ? false : true;
+  };
+
+  // This variable determines which of the Login/Register forms is displayed. (true = login)
+  $scope.loginOrRegister = true;
+
+
+
   $scope.name = mainServ.name;
 
   $scope.readytodelete = false;
@@ -11,7 +31,7 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, mainServ)
 
   $scope.clientId = mainServ.clientId;
   $scope.clientSecret = mainServ.clientSecret;
-  
+
   $scope.clientStream;
 
   $scope.blogPost;
@@ -71,4 +91,3 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, mainServ)
   }
 
 });
-
