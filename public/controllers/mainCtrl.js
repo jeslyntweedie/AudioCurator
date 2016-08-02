@@ -8,7 +8,7 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $s
   $scope.loggedInUser = {};
 
   // Variable for showing or hiding login button. Logout button should display when this is false.
-  $scope.showLoginButton = true;
+  $scope.showLoginButton = $scope.loggedInUser === {} ? true : false;
 
   // This variable controls whether the Login/Register form is displayed.
   $scope.showAuthForm = false;
@@ -17,6 +17,12 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $s
   $scope.toggleLoginView = function() {
     console.log("showAuthForm value", $scope.showAuthForm)
     $scope.showAuthForm = $scope.showAuthForm ? false : true;
+  };
+
+  // Clears sensitive login information from the input forms. Called immediately after being passed login or register function.
+  $scope.clearLogin = function(){
+    $scope.user = {};
+    $scope.newUser = {};
   };
 
   // This variable determines which of the Login/Register forms is displayed. (true = login)
