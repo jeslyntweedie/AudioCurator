@@ -19,6 +19,12 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $s
     $scope.showAuthForm = $scope.showAuthForm ? false : true;
   };
 
+  // Clears sensitive login information from the input forms. Called immediately after being passed login or register function.
+  $scope.clearLogin = function(){
+    $scope.user = {};
+    $scope.newUser = {};
+  };
+
   // This variable determines which of the Login/Register forms is displayed. (true = login)
   $scope.loginOrRegister = true;
 
