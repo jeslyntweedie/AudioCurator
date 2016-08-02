@@ -3,11 +3,12 @@
 
 <html ng-app="AudioCurator">
   <head>
-
-   <link href="./styles.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="./css/styles.css" type="text/css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
     <script src="http://connect.soundcloud.com/sdk.js"></script>
+
     <title>Audio Curator</title>
 
   </head>
@@ -94,6 +95,10 @@
           <img style="border: 3px solid green;" src="http://connect.soundcloud.com/2/btn-disconnect-l.png">
         </button>
       </p>
+      {{tracklist}}
+      <img src="{{tracklist[0].artwork_url}}"/>
+<!--       <button type="button" ng-click="getTracks()">Get Tracks</button>
+      <ol id="track-list"></ol> -->
     </div>
 
 
@@ -147,7 +152,6 @@
     <script src="./controllers/passportService.js" type="text/javascript"></script>
     <script src="./controllers/adminCtrl.js" type="text/javascript"></script>
     <script src="https://connect.soundcloud.com/sdk/sdk-3.1.2.js"></script>
-    
 
   </body>
 </html>
