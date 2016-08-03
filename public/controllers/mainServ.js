@@ -16,7 +16,11 @@ angular.module("AudioCurator").service("mainServ", function($http) {
 
 	this.postBlog = function(newPost){
 		var today = "[" + new Date().toISOString().slice(0, 10) + "] - " + new Date().toISOString().slice(11, 19);
+		//This creates a string of date and time, down to seconds, so that posts can be ordered chronologically 
+		//so the newest post is posted at the top 
 		var worddate = (new Date()).toString().slice(4, 15);
+		//This takes the created string, and only displays the day, date, and month so that we aren't getting 
+		//time, seconds, and milliseconds added to our blog posts
 	  	var post = {
 	  		body: newPost,
 	  		date: today,

@@ -51,7 +51,7 @@ app.delete('/user/:id', userCtrl.delete);   // Remove a user from the database
 // });
 
 // These routes are for posting and updating blog posts on the site.
-app.post('/post', passport.authenticate('local-signup', { failureRedirect: '/' }), postCtrl.create);
+app.post('/post', postCtrl.create);
      // Create new blog entry in the database
 app.get('/post', postCtrl.read);            // Get all blog posts
 app.put('/post/:id', postCtrl.update);      // Edit a blog entry

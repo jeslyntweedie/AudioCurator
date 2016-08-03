@@ -3,6 +3,7 @@
 
 <head>
 
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,9 +56,37 @@
 
     <!-- Audio Player -->
 
+<script type="text/javascript">
+ $(document).ready(function(){
+  $("#jquery_jplayer_1").jPlayer({
+   ready: function () {
+    $(this).jPlayer("setMedia", {
+     m4a: "/media/mysound.mp4",
+     oga: "/media/mysound.ogg"
+    });
+   },
+   swfPath: "/js",
+   supplied: "m4a, oga"
+  });
+ });
+</script>
+<div id="jquery_jplayer_1 "></div>
+<div id="jp_container_1 ">
+ <a href="#" class="jp-play">Play</a>
+ <a href="#" class="jp-pause">Pause</a>
+</div>
+ <a
+                id="m1"
+                class="audio {ogg:'http://www.miaowmusic.com/ogg/Miaow-07-Bubble.ogg',
+                mp3:'http://www.miaowmusic.com/ogg/Miaow-07-Bubble.mp3'}"
+                href="javascript:void(0)">miaowmusic - Bubble (mp3/ogg)
+        </a>
+
+
 <div class="container-fluid">
-    <div class="row">
-        <img class="img-responsive" src="http://placehold.it/1400x300" alt="Blog Banner">
+    <div class="row" style="height:300px">
+    <!-- 
+        <img class="img-responsive" src="http://placehold.it/1400x300" alt="Blog Banner"> -->
         <hr>
     </div>
 </div>   
