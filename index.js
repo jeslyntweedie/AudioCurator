@@ -57,12 +57,30 @@ app.delete('/user/:id', ifAuthenticated, userCtrl.delete);   // Remove a user fr
 
 // These routes are for posting and updating blog posts on the site.
 
+app.post('/post', postCtrl.create);
+     // Create new blog entry in the database
+app.get('/post', postCtrl.read);            // Get all blog posts
+app.put('/post/:id', postCtrl.update);      // Edit a blog entry
+app.delete('/post/:id', postCtrl.delete);   // Remove a blog from teh database
+
+
+// // This is how to authenticate users attempting to access an API route or page (but it won't block a state in a SPA) - that must be done in logic on the front end. Theoretically a user could get our admin page, but shouldn't be able to use it to modify any data.
+// // I will delete the route later after applying the principles to our blog post routes.
+// app.get('/admin', function(req, res, next){
+//   console.log ("req.isAuthenticated: ", req.isAuthenticated());
+//   if (req.isAuthenticated()){
+//     res.send
+//   } else {
+//     console.log("Unauthorized attempt to access /admin has been recorded");
+//     res.send("Unauthorized attempt to access /admin has been recorded");
+//   }
+// });
+
+
 app.post('/post', ifAuthenticated, postCtrl.create);         // Create new blog entry in the database
 app.get('/post', postCtrl.read);                             // Get all blog posts
 app.put('/post/:id', ifAuthenticated, postCtrl.update);      // Edit a blog entry
 app.delete('/post/:id', ifAuthenticated, postCtrl.delete);   // Remove a blog from teh database
-
-
 
 // ---------------- CONNECT TO MONGODB ----------------
 var mongoUri = "mongodb://localhost:27017/AudioCurator";    // Set database to 'AudioCurator' on local MongoDB instance
