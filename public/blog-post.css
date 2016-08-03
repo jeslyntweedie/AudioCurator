@@ -1,56 +1,14 @@
 body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    background-color: #333;
 }
+
 
 footer {
     margin: 50px 0;
 }
 
-/* DO NOT REMOVE OR MODIFY */
-/*{"skinName": "mySkin", "borderRadius": 5, "main": "rgb(218, 201, 139)", "secondary": "#fff", "playerPadding": 0}*/
-/* END - DO NOT REMOVE OR MODIFY */
-/*++++++++++++++++++++++++++++++++++++++++++++++++++
-Copyright (c) 2001-2014. Matteo Bicocchi (Pupunzi);
-http://pupunzi.com/mb.components/mb.miniAudioPlayer/demo/skinMaker.html
+#logo {
+	height: 50px;
+}
 
-Skin name: mySkin
-borderRadius: 5
-background: rgb(218, 201, 139)
-icons: #fff
-border: rgb(242, 242, 242)
-borderLeft: rgb(230, 219, 178)
-borderRight: rgb(206, 183, 100)
-mute: rgba(255, 255, 255, 0.4)
-download: rgba(218, 201, 139, 0.4)
-downloadHover: rgb(218, 201, 139)
-++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-/* Older browser (IE8) - not supporting rgba() */
-.mbMiniPlayer.mySkin .playerTable span{background-color:#dac98b}
-.mbMiniPlayer.mySkin .playerTable span.map_play{border-left:1px solid #dac98b;}
-.mbMiniPlayer.mySkin .playerTable span.map_volume{border-right:1px solid #dac98b;}
-
-/*++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-.mbMiniPlayer.mySkin .playerTable{background-color:transparent; border-radius:5px !important;}
-.mbMiniPlayer.mySkin .playerTable span{background-color:rgb(218, 201, 139); padding:3px !important; font-size: 20px;}
-.mbMiniPlayer.mySkin .playerTable span.map_time{ font-size: 12px !important; width: 50px !important}
-.mbMiniPlayer.mySkin .playerTable span.map_title{ padding:4px !important}
-.mbMiniPlayer.mySkin .playerTable span.map_play{border-left:1px solid rgb(206, 183, 100); border-radius:0 4px 4px 0 !important;}
-.mbMiniPlayer.mySkin .playerTable span.map_volume{padding-left:6px !important}
-.mbMiniPlayer.mySkin .playerTable span.map_volume{border-right:1px solid rgb(230, 219, 178); border-radius:4px 0 0 4px !important;}
-.mbMiniPlayer.mySkin .playerTable span.map_volume.mute{color: rgba(255, 255, 255, 0.4);}
-.mbMiniPlayer.mySkin .map_download{color: rgba(218, 201, 139, 0.4);}
-.mbMiniPlayer.mySkin .map_download:hover{color: rgb(218, 201, 139);}
-.mbMiniPlayer.mySkin .playerTable span{color: #fff;text-shadow: none!important;}
-.mbMiniPlayer.mySkin .playerTable span{color: #fff;}
-.mbMiniPlayer.mySkin .playerTable {border: 1px solid rgb(242, 242, 242) !important;}
-.mbMiniPlayer.mySkin .playerTable span.map_title{color: #000; text-shadow:none!important}
-.mbMiniPlayer.mySkin .playerTable .jp-load-bar{background-color:rgba(218, 201, 139, 0.3);}
-.mbMiniPlayer.mySkin .playerTable .jp-play-bar{background-color:#dac98b;}
-.mbMiniPlayer.mySkin .playerTable span.map_volumeLevel a{background-color:rgb(255, 255, 255); height:80%!important }
-.mbMiniPlayer.mySkin .playerTable span.map_volumeLevel a.sel{background-color:#fff;}
-.mbMiniPlayer.mySkin  span.map_download{font-size:50px !important;}
-/* Wordpress playlist select */
-.map_pl_container .pl_item.sel{background-color:rgba(218, 201, 139, 0.1) !important; color: #999}
-/*++++++++++++++++++++++++++++++++++++++++++++++++*/

@@ -28,6 +28,16 @@ app.use(bodyParser.urlencoded());
 app.use(express.static(__dirname + '/public')); // Makes all of our files in the /public directory available to the internet
 
 
+// ---------------- ROUTE AUTH FUNCTION ----------------
+// This is a simple test to see whether a user is authenticated by passport when they make a request to a route. Right now it tests for ANY logged in user. We will have to add a property req.user.admin to test for if users are allowed to create accounts. But for now it is at least preventing random internet people from attacking our database with postman.
+var ifAuthenticated = function(req, res, next){
+  if (req.user) {               // req.user only exists after passport has authenticated a user
+    next();
+  } else {
+    res.redirect('/');          // On failure, redirect to home (where login resides in this app)
+  }
+};
+
 // ---------------- ROUTES ----------------
 // These are authentication related routes for creation and authentication of accounts.
 app.post('/signup', passport.authenticate('local-signup'), userCtrl.login);     // Route for creating a new user.
@@ -39,18 +49,14 @@ app.get('/logout', function(req, res){
 
 // These routes are for modifying or retrieving info about the users in the database. There is no create because passport handles all user creation in passport/passport.js
 app.get('/user/me', userCtrl.getMe);        // Gets info about the logged in user making the request
-app.get('/user', userCtrl.getall);          // Get list of all users
-app.get('/user/:id', userCtrl.read);        // Get info on a single user
-app.put('/user/:id', userCtrl.update);      // Update a user's info
-app.delete('/user/:id', userCtrl.delete);   // Remove a user from the database
+app.get('/user', ifAuthenticated, userCtrl.getall);          // Get list of all users
+app.get('/user/:id', userCtrl.read);                         // Get info on a single user
+app.put('/user/:id', ifAuthenticated, userCtrl.update);      // Update a user's info
+app.delete('/user/:id', ifAuthenticated, userCtrl.delete);   // Remove a user from the database
 
-// // This route is for testing purposes and could be removed later. It checks whether a user is authenticated (look in the console)
-// app.get('/loggedin', function(req, res) {   // Route to test if user is authenticated
-//   console.log('user is authenticated? ', req.isAuthenticated()); // logs true or false
-//   res.send(req.isAuthenticated() ? req.user : 'NOT_AUTHENTICATED');  // Passport places isAuthenticated() method on all req so we can use it to test. It also places the .user object. ".user" will not be present if a user in not authenticated.
-// });
 
 // These routes are for posting and updating blog posts on the site.
+
 app.post('/post', postCtrl.create);
      // Create new blog entry in the database
 app.get('/post', postCtrl.read);            // Get all blog posts
@@ -70,6 +76,11 @@ app.delete('/post/:id', postCtrl.delete);   // Remove a blog from teh database
 //   }
 // });
 
+
+app.post('/post', ifAuthenticated, postCtrl.create);         // Create new blog entry in the database
+app.get('/post', postCtrl.read);                             // Get all blog posts
+app.put('/post/:id', ifAuthenticated, postCtrl.update);      // Edit a blog entry
+app.delete('/post/:id', ifAuthenticated, postCtrl.delete);   // Remove a blog from teh database
 
 // ---------------- CONNECT TO MONGODB ----------------
 var mongoUri = "mongodb://localhost:27017/AudioCurator";    // Set database to 'AudioCurator' on local MongoDB instance
