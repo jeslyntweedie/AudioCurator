@@ -4,6 +4,9 @@ Use function argument to inject in the $scope object and the mainServ service fi
 
 angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $state, mainServ, passportService) {
 
+  // This will hold an arry of songs that make up or continuous playlist
+  $scope.songs = [];
+
   // This variable will hold info about the currently logged in user and will be falsy if no user is been logged in.
   $scope.loggedInUser = {};
 
@@ -70,6 +73,32 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $s
         $state.go('admin');                          // Redirects to admin page after registration/login
       })
   };
+
+  // Set up soundcloud sdk with out app's client ID as assigned by SoundCloud
+  SC.initialize({
+      client_id: "0d74e749681c280ecda7178908e7c62a"
+  });
+
+  // This function will be reworked to take in a souncdloud 'share url' (when user makes a post) and return or save the streaming url to the database.
+  SC.get("https://api.soundcloud.com/users/slavetothesound/favorites", {
+      limit: 30
+  }, function(tracks) {
+      for (var i = 0; i < tracks.length; i ++) {
+          SC.stream( '/tracks/' + tracks[i].id, function( sm_object ){
+
+            var url = 'https' + sm_object.url.slice(4);
+                var track = {
+                  id: tracks[i].id,
+                  title: tracks[i].title,
+                  artist: tracks[i].genre,
+                  url: url
+              };
+              $scope.$apply(function () {
+                  $scope.songs.push(track);
+              });
+          });
+      }
+  });
 
   $scope.name = mainServ.name;
 

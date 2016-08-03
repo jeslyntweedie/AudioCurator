@@ -54,7 +54,6 @@ app.get('/user/:id', userCtrl.read);                         // Get info on a si
 app.put('/user/:id', ifAuthenticated, userCtrl.update);      // Update a user's info
 app.delete('/user/:id', ifAuthenticated, userCtrl.delete);   // Remove a user from the database
 
-
 // These routes are for posting and updating blog posts on the site.
 app.post('/post', ifAuthenticated, postCtrl.create);         // Create new blog entry in the database
 app.get('/post', postCtrl.read);                             // Get all blog posts

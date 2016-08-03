@@ -8,6 +8,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
     <script src="http://connect.soundcloud.com/sdk.js"></script>
+    <script src="./dist/angular-soundmanager2.js"></script>
+
 
     <title>Audio Curator</title>
 
@@ -48,6 +50,83 @@
 
     </nav>
 
+    <!--======================= SOUNDMANAGER2 PLAYER EXAMPLE GOES HERE! ============================-->
+    <div class="container" ng-controller="mainCtrl">
+        <div class="row">
+            <div class="col-md-12">
+
+                <h5>Songs</h5>
+                <ul>
+                    <li ng-repeat="song in songs">
+                        <button music-player="play" add-song="song">{{ song.title }}</button>
+                        <button music-player add-song="song">+</button>
+                    </li>
+                </ul>
+
+                <button play-all="songs">Play all</button>
+
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- init soundManager2 player -->
+                <sound-manager></sound-manager>
+
+                <p>
+                    Currently Playing: {{ currentPlaying.title }} by {{ currentPlaying.artist }} ({{ currentPostion }} / {{ currentDuration }})
+                </p>
+
+                <div class="seekBase" seek-track>
+                    <div class="seekLoad" ng-style="{width : ( progress + '%' ) }"></div>
+                </div>
+                <br />
+                <button play-music>Play</button>
+                -
+                <button pause-music>Pause</button>
+                -
+                <button stop-music>Stop</button>
+                -
+                <button repeat-music>Repeat ({{ repeat }})</button>
+                -
+                <button play-pause-toggle data-play="Play!" data-pause="Pause!">Play Toggle</button>
+
+                Is Playing: {{ isPlaying }}
+                <br/>
+                <br/>Volume: {{ volume }} -
+                <button music-volume data-type="increase">+</button>
+                -
+                <button music-volume data-type="decrease">-</button>
+                -
+                <button mute-music>Mute ({{ mute }})</button>
+                <br/>
+                <br/>
+                <button prev-track>Prev Track</button>
+                -
+                <button next-track>Next Track</button>
+                -
+                <button clear-playlist>Clear Playlist</button>
+                <br/>
+                <br/>
+                <h5>Playlist</h5>
+                <ul>
+                    <li ng-repeat="song in playlist">
+                        <a play-from-playlist="song">{{ song.title }}</a>
+                        -
+                        <a remove-from-playlist="song" data-index="{{$index}}">
+                            <small>(remove)</small>
+                        </a>
+                        <span ng-if="currentPlaying.id == song.id"> - (current)</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--======================= SOUNDMANAGER2 PLAYER EXAMPLE ENDS HERE! ============================-->
+
+
     <!-- Proof of concept login and register forms here. Feel free to alter them. I copied this (and some styles) from an old "dogs" project -->
     <div class="auth" ng-show="showAuthForm">
       <div class="login" ng-show="loginOrRegister">
@@ -73,7 +152,6 @@
     </div>
 
 
-
     <!-- States attach here -->
     <ui-view></ui-view>
 
@@ -95,8 +173,7 @@
           <img style="border: 3px solid green;" src="http://connect.soundcloud.com/2/btn-disconnect-l.png">
         </button>
       </p>
-      {{tracklist}}
-      <img src="{{tracklist[0].artwork_url}}"/>
+
 <!--       <button type="button" ng-click="getTracks()">Get Tracks</button>
       <ol id="track-list"></ol> -->
     </div>
@@ -151,7 +228,6 @@
     <script src="./controllers/SoundCloudServ.js" type="text/javascript"></script>
     <script src="./controllers/passportService.js" type="text/javascript"></script>
     <script src="./controllers/adminCtrl.js" type="text/javascript"></script>
-    <script src="https://connect.soundcloud.com/sdk/sdk-3.1.2.js"></script>
 
   </body>
 </html>
