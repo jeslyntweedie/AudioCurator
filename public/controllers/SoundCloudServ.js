@@ -8,6 +8,7 @@ this.connect = function(){
 	SC.initialize({
 	  client_id: clientId,
 	  redirect_uri: 'http://localhost:8000/callback.html'
+	  /*oauth_token (optional): If you want to reuse an access token*/
 	});
 
 	// initiate login popup
@@ -46,12 +47,31 @@ this.connect = function(){
     this.getUser = function(username) {
  		return $http({
 	  		method: "GET",
-	  		url: "http://api.soundcloud.com/users/" + username + "/tracks.json?client_id=93b670379c03c10be221ed90ee118f93"
+	  		url: "http://api.soundcloud.com/users/" + username + "/tracks.json?client_id=" + clientId
 
 	  	}).then(function(res){
 	  		console.log('mainServ line 47', res.data);
 	  		return res.data;
 	  	});
  	};
+
+	this.embed = function(url) {
+
+	    return SC.oEmbed(url, {
+	  		auto_play: true
+		});
+
+ 	};	
+
+
+
+/* 	this.streamMusic = function(){
+
+	 	SC.stream('/tracks/293').then(function(player){
+	  	player.play();
+
+		});
+
+ 	};*/
 
 });

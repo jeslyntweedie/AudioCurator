@@ -87,6 +87,7 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $s
 
   $scope.postBlog = function(newPost){
     if (newPost){
+      console.log(newPost);
 
       mainServ.postBlog(newPost)
       .then(function(res){
