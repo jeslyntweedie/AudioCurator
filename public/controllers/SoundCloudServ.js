@@ -25,24 +25,6 @@ this.connect = function(){
 	});
 };
 
-/*this.getTracks = function(){
-
-    SC.get("/tracks", {
-        user_id: 43374421,
-        limit: 100
-    }, function (tracks) {
-    	console.log(tracks);
-        var tmp = '';
-
-        for (var i = 0; i < tracks.length; i++) {
-
-            tmp = '<a href="' + tracks[i].permalink_url + '">' + tracks[i].title + ' - ' + tracks[i].duration + '</a>';
-
-            $("<li/>").html(tmp).appendTo("#track-list");
-        }
-
-	});
-};*/
 
     this.getUser = function(username) {
  		return $http({
@@ -55,13 +37,13 @@ this.connect = function(){
 	  	});
  	};
 
-	this.embed = function(url) {
+/*	this.embed = function(url) {
 
 	    return SC.oEmbed(url, {
 	  		auto_play: true
 		});
 
- 	};	
+ 	};*/	
 
 
 
