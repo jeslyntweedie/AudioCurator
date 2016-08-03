@@ -69,3 +69,15 @@
 .login input, .register input {
   margin: 5px;
 }
+
+/*These next two tags are for the player's progress bar*/
+.seekBase {
+  height: 30px;
+  width: 90%;
+  border: 1px solid #cccccc;
+}
+.seekLoad {
+	height: 30px;
+  width: 0;
+  background-color: #E0EAF1;
+}
