@@ -13,7 +13,6 @@ We hope you enjoy AudioCurator, feel free to tweak the code as you like, add you
 
 -The AudioCurator Team
 
-space-sentence:1 
-sdsdsdsdsdsds
+$ what does this do
 
  
