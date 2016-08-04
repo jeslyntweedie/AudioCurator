@@ -32,6 +32,11 @@
   font-size:20px;
  }
 
+ .aboutlogo {
+ margin-left:-65px;
+ margin-top:-200px;
+ }
+
 /* The styles below will bring shame on my family for generations. PLEASE HELP ME */
 /*Also something below here made the login button jump to the center. What could it be?*/
   .auth {

@@ -1,34 +1,92 @@
 
 <!DOCTYPE html>
-
-<html ng-app="AudioCurator">
+<html lang="en" ng-app="AudioCurator">
   <head>
-
-  <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
-   <link href="./styles.css" type="text/css" rel="stylesheet"> -->
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <link href="./css/styles.css" type="text/css" rel="stylesheet">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
-    <script src="http://connect.soundcloud.com/sdk.js"></script>
-    <script src="./dist/angular-soundmanager2.js"></script>
-
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
     <title>Audio Curator</title>
 
+     <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link href="./css/styles.css" type="text/css" rel="stylesheet">
+     <!-- Custom CSS -->
+    <link href="blog-post.css" rel="stylesheet">
+    <!-- Angular and SoundCloud Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+    <script src="http://connect.soundcloud.com/sdk.js"></script>
+    <script src="https://connect.soundcloud.com/sdk/sdk-3.1.2.js"></script>
+
+    <script src="./dist/angular-soundmanager2.js"></script>
+
+
+
   </head>
 
-   <!-- Use the "ng-controller" directive to associate index.html with controller(mainCtrl) -->
+<!--   this is where you've left off for lunch-->
 
+   <!-- Use the "ng-controller" directive to associate index.html with controller(mainCtrl) -->
   <body ng-cloak ng-controller="mainCtrl" >
 
-    <nav>
+
+   <nav class="navbar navbar navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"><a href="#" class="brand-logo center title"><img id="logo" src="headphones.png" alt="headphones logo"/></a></a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+              <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="./templates/about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+  <!-- Audio Player -->
+      
+    <div class="row" ng-controller="SoundCloudCtrl">
+        <div ng-bind-html="htmlPlayer"></div>
+
+        <div id="putTheWidgetHere"></div>
+        
+        <script type="text/javascript">
+          SC.oEmbed("http://soundcloud.com/caitlin_potter/the-rains-of-castamere", { // track.permalink_url
+            element: document.getElementById('putTheWidgetHere')
+          });
+        </script>
 
 
-       <div class="nav-wrapper grey lighten-2">
+        <hr>
+    </div>
+</div>   
+  
+   <!-- Blog Posts --> 
+
+
         <div class = "title">
 
      <a href="#" class="brand-logo center"><img src="headphones.png" alt="headphones logo"/>A u d i o C u r a t o r</a></div>
@@ -202,19 +260,13 @@
     <!-- <button type="button" ng-click="displayPosts()">Click here to display blog posts.</button> -->
     <div ng-repeat="post in postHistory | orderBy: '-date' | filter: search">
 
+
+
         <span ng-hide="readytoupdate" ng-dblclick="readytoupdate =true">
           <h2><strong>{{post.displaydate}}</strong></h2>
           <h3>{{post.body}}</h3>
 
-<div id="vc-feelback-main" data-access-token="414fff8a1a3c59f7fe18c79f411de7d3" data-display-type="4" ></div> 
 
-<script> 
-(function() { 
-var v = document.createElement('script'); v.async = true; 
-v.src = "http://assets-prod.vicomi.com/vicomi.js"; 
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(v, s); 
-})(); 
-</script>
 
 </span>
 
