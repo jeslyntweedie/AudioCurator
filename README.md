@@ -1,5 +1,5 @@
 # AudioCurator
-Open source audio blog platform
+An open source audio blog platform
 
 ##A passion for music
 
@@ -9,6 +9,10 @@ Finding streaming audio player templates that were free and well documented prov
 
 Keeping it free and open source, our audio player can stream directly from any user-created playlist on their own SoundCloud and can pull any track from the SoundCloud universe. 
 
-We hope you enjoy AudioCurator, feel free to tweak the code as you like, add your own flair, and contact us with questions of comments. 
+We hope you enjoy AudioCurator, feel free to tweak the code as you like, add your own flair, and contact us with questions or comments. 
 
 -The AudioCurator Team
+
+
+
+ 
