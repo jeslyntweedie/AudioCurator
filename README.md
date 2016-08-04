@@ -13,10 +13,17 @@ We hope you enjoy AudioCurator, feel free to tweak the code as you like, add you
 
 -The AudioCurator Team
 
-### Clone our repo to your local system
+## Clone our repository to your local system
 
  Start in your terminal and navigate into the folder location you would like to store AudioCurator 
  
   `git clone https://github.com/AudioCurator/AudioCurator.git`
+  
+  
+## Install dependencies 
+  This is you dev environment as seen in package.json. In your terminal, enter the following and install them locally on your machine. 
+  
+ `npm install ` 
+ 
 
  

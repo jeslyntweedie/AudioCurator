@@ -10,25 +10,15 @@ html, body {
   clear: both;
 }
 .nav-pills {
-  width: max-content;
+  width: 100px;
+  height: 50px;
   margin: 0 auto;
 }
-#logoImg {
-  padding: 5px;
-  width: 68px;
-  height: 75px;
-  margin-bottom: 50px;
-  border: 1px solid #00ffff;
-  float: left;
+#header {
+  width: 100%;
+  height: max-content;
   background-color: #fff;
-  border-radius: 50%;
-}
-#logoText {
-  float: right;
-  padding-right: 20px;
-  padding-top: 20px;
-  text-decoration: underline;
-  color: #00ffff;
+  border-bottom: 2px solid #00ffff;
 }
 
 #trigger {
@@ -37,14 +27,33 @@ html, body {
   border-radius: 50%;
   padding: 10px 5px 10px 15px;
   margin-left: -30px;
+  float: left;
+}
+#blog-logo {
+  width: 120px;
+  height: 120px;
+  padding: 10px;
+  margin: 0 auto;
+}
+#blog-logo-slider {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+#blog-title {
+  float: right;
 }
 
 #slider {
   background-color: #222;
 }
 
-#home-spacer {
-  height: 20vh;
+#sm-spacer {
+  height: 20px;
+  background-color: transparent;
+}
+#lg-spacer {
+  height: 100px;
   background-color: transparent;
 }
 #main {
@@ -81,6 +90,7 @@ html, body {
   height: 30px;
 }
 #footerNav ul li {
+  background-color: #222;
   list-style: none;
 }
 #footerNav ul li a {
@@ -104,3 +114,57 @@ html, body {
 #copyright {
   margin-top: 20px;
 } 
+
+.nav-pills>li+li {
+  margin-bottom: 20px; // 2px by default
+} 
+.nav-pills>li.active {
+  margin-bottom: 20px;
+  background-color: #00ffff;
+  color: #222;
+}
+
+.nav-pills>li {
+  border: 2px solid #00ffff;
+  border-radius: 4px;
+  background-color: #fff;
+}
+.nav-pills>li>a {
+  padding: 2px 5px;
+}
+a {
+    color: #222;
+    text-decoration: none;
+    background-color: #fff;
+}
+a:active {
+    color: #222;
+    text-decoration: none;
+    background-color: #00ffff;
+}
+a:hover {
+    color: #222;
+    text-decoration: none;
+    background-color: #00ffff;
+}
+.nav-pills>li.active>a, .nav-pills>li>a:focus, 
+.nav-pills>li>a:hover, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+    color: #222;
+    background-color: #00ffff;
+}
+#close {
+  border-radius: 50%;
+  position: relative;
+  top: 250px;
+
+}
+.btn:focus,.btn:active {
+   outline: none !important;
+}
+#search:focus {
+  border-color:#00ffff;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
