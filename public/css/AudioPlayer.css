@@ -1,0 +1,75 @@
+
+#player {
+	background-color: #222;
+	color: #fff;
+	border: 2px solid #00ffff;
+	border-radius: 4px;
+	width: 98%;
+	height: 100px;
+	margin: 30px 20px 30px 0;
+}
+#player-box {
+	height:110px;
+	width: 100%;
+	background-color: #fff;
+
+}
+button {
+	color: #00ffff;
+	background-color: #333;
+}
+button:hover {
+	border-color: #00ffff;
+}
+#play {
+	border-radius: 50%;
+	width:40px;
+	height:40px;
+	position: relative;
+	right: 30px;
+	top: 12px;
+}
+#shuffle {
+	width: 50px;
+	margin-right: 20px;
+}
+#shuffle {
+	position: relative;
+	margin-top: 10px;
+
+}
+#previous, #next {
+	position: relative;
+	right: 100px;
+	float: right;
+	margin: 10px 2px;
+}
+btn-group-vertical {
+	display: block;
+}
+.progress {
+	height: 8px;
+	max-width: 70%;
+	margin: 30px auto 0;
+}
+.progress-bar-info {
+    background-color: #00ffff;
+}
+.progress-label {
+	float: left;
+    position: relative;
+    top: 40px;
+    left: 15%;
+}
+.progress-label-after {
+    float: right;
+    position: relative;
+    top: 40px;
+    right: 10%;
+}
+
+.glyphicon-random {
+	position: relative;
+	top: 0;
+	left: 0;
+}

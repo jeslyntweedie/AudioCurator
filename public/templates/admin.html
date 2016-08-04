@@ -7,6 +7,13 @@
 	<div>
 		<h1>YOU ARE LOGGED IN</h1>
 		<h2> Welcome to the command center </h2>
+		<h3> Post a new message: </h3>
+		<form class= "active" ng-submit="postBlog(newBlogPost)">
+				<input type="text" ng-model="newBlogPost">
+				<button type = "submit">Submit</button>
+		</form>
+		<h3> Preview: </h3>
+		<h4>{{newBlogPost}}</h4>
 	</div>
 </body>
 

@@ -1,196 +1,22 @@
 
 <!DOCTYPE html>
-<html lang="en" ng-app="AudioCurator">
+
+<html ng-app="AudioCurator">
   <head>
-    
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+
+    <!-- *** Stylesheets *** -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Custom Stylesheets -->
+    <link href="./css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="./css/AudioPlayer.css" rel="stylesheet" type="text/css"/>
+
 
     <title>Audio Curator</title>
 
-     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <link href="./css/styles.css" type="text/css" rel="stylesheet">
-     <!-- Custom CSS -->
-    <link href="blog-post.css" rel="stylesheet">
-    <!-- Angular and SoundCloud Scripts -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
-    <script src="http://connect.soundcloud.com/sdk.js"></script>
-    <script src="https://connect.soundcloud.com/sdk/sdk-3.1.2.js"></script>
-
-    <script src="./dist/angular-soundmanager2.js"></script>
-
-
-
   </head>
 
-<!--   this is where you've left off for lunch-->
-
-   <!-- Use the "ng-controller" directive to associate index.html with controller(mainCtrl) -->
   <body ng-cloak ng-controller="mainCtrl" >
 
-
-   <nav class="navbar navbar navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#"><a href="#" class="brand-logo center title"><img id="logo" src="headphones.png" alt="headphones logo"/></a></a>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-              <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="./templates/about.html">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-  <!-- Audio Player -->
-      
-    <div class="row" ng-controller="SoundCloudCtrl">
-        <div ng-bind-html="htmlPlayer"></div>
-
-        <div id="putTheWidgetHere"></div>
-        
-        <script type="text/javascript">
-          SC.oEmbed("http://soundcloud.com/caitlin_potter/the-rains-of-castamere", { // track.permalink_url
-            element: document.getElementById('putTheWidgetHere')
-          });
-        </script>
-
-
-        <hr>
-    </div>
-</div>   
-  
-   <!-- Blog Posts --> 
-
-
-        <div class = "title">
-
-     <a href="#" class="brand-logo center"><img src="headphones.png" alt="headphones logo"/>A u d i o C u r a t o r</a></div>
-       </a>
-
-       <ul id="nav-mobile" class="right hide-on-med-and-down">
-
-       </ul>
-    </div>
-
-
-          <!-- loggedInUser (from mainCtrl) is an empty object when no user has logged in. When user logs in, statement will be evaluated as false and logout button will be displayed instead. -->
-          <!-- showAuthForm is a variable that toggles between true and false when this div is clicked to hide or show the login/register form -->
-          <div>
-            <ul>             <!-- id="nav-mobile" class="right hide-on-med-and-down" -->
-              <li ng-show='showLoginButton' id="nav-mobile" class="right hide-on-med-and-down navbuttonfront" ng-click='showAuthForm = showAuthForm ? false : true'>
-                  <!-- There is no actual link in the <a>. Clicking it shows or hides the login/register div. -->
-                  <a>Login</a>
-              </li>
-              <li ng-hide='showLoginButton' id="nav-mobile" class="right hide-on-med-and-down navbuttonfront" ng-click='logout()'>
-                  <!-- There is no actual link in the <a>. Clicking it calls the logout function of ng-click in parent <ul> -->
-                  <a>Logout</a>
-              </li>
-            </ul>
-          <div>
-       </div>
-
-    </nav>
-
-    <!--======================= SOUNDMANAGER2 PLAYER EXAMPLE GOES HERE! ============================-->
-    <div class="container" ng-controller="mainCtrl">
-        <div class="row">
-            <div class="col-md-12">
-
-                <h5>Songs</h5>
-                <ul>
-                    <li ng-repeat="song in songs">
-                        <button music-player="play" add-song="song">{{ song.title }}</button>
-                        <button music-player add-song="song">+</button>
-                    </li>
-                </ul>
-
-                <button play-all="songs">Play all</button>
-
-            </div>
-        </div>
-
-        <hr />
-
-        <div class="row">
-            <div class="col-md-12">
-                <!-- init soundManager2 player -->
-                <sound-manager></sound-manager>
-
-                <p>
-                    Currently Playing: {{ currentPlaying.title }} by {{ currentPlaying.artist }} ({{ currentPostion }} / {{ currentDuration }})
-                </p>
-
-                <div class="seekBase" seek-track>
-                    <div class="seekLoad" ng-style="{width : ( progress + '%' ) }"></div>
-                </div>
-                <br />
-                <button play-music>Play</button>
-                -
-                <button pause-music>Pause</button>
-                -
-                <button stop-music>Stop</button>
-                -
-                <button repeat-music>Repeat ({{ repeat }})</button>
-                -
-                <button play-pause-toggle data-play="Play!" data-pause="Pause!">Play Toggle</button>
-
-                Is Playing: {{ isPlaying }}
-                <br/>
-                <br/>Volume: {{ volume }} -
-                <button music-volume data-type="increase">+</button>
-                -
-                <button music-volume data-type="decrease">-</button>
-                -
-                <button mute-music>Mute ({{ mute }})</button>
-                <br/>
-                <br/>
-                <button prev-track>Prev Track</button>
-                -
-                <button next-track>Next Track</button>
-                -
-                <button clear-playlist>Clear Playlist</button>
-                <br/>
-                <br/>
-                <h5>Playlist</h5>
-                <ul>
-                    <li ng-repeat="song in playlist">
-                        <a play-from-playlist="song">{{ song.title }}</a>
-                        -
-                        <a remove-from-playlist="song" data-index="{{$index}}">
-                            <small>(remove)</small>
-                        </a>
-                        <span ng-if="currentPlaying.id == song.id"> - (current)</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!--======================= SOUNDMANAGER2 PLAYER EXAMPLE ENDS HERE! ============================-->
 
 
     <!-- Proof of concept login and register forms here. Feel free to alter them. I copied this (and some styles) from an old "dogs" project -->
@@ -217,91 +43,210 @@
       </div>
     </div>
 
+    <!-- Main page begins here -->
+    <div id="main" class="container-fluid">
 
-    <!-- States attach here -->
-    <ui-view></ui-view>
+      <div class="row">
+        <div class="col-sm-2">
+         <h2><span id="trigger" class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></h2>
+        </div>
+        <div class="col sm-10 col-sm-offset-2">
 
-    <div ng-controller="SoundCloudCtrl">
-      <!-- <input type="submit" ng-controller="loginCtrl" ng-click="auth.signin()" /> -->
-      <!-- <img src="http://connect.soundcloud.com/2/btn-connect-s.png"> -->
-      <p style="width: 515px;">
-        <!-- <img src="http://connect.soundcloud.com/2/btn-connect-sc-s.png">
-        <img src="http://connect.soundcloud.com/2/btn-connect-s.png">
-        <img src="http://connect.soundcloud.com/2/btn-disconnect-s.png">
-        <img src="http://connect.soundcloud.com/2/btn-connect-sc-m.png">
-        <img src="http://connect.soundcloud.com/2/btn-connect-m.png">
-        <img src="http://connect.soundcloud.com/2/btn-disconnect-m.png">
-        <img src="http://connect.soundcloud.com/2/btn-connect-sc-l.png"> -->
-        <button type="button" ng-click="connectSoundCloud()">
-          <img style="border: 3px solid green;" src="http://connect.soundcloud.com/2/btn-connect-l.png">
-        </button>
-        <button type="button" ng-click="disconnectSoundCloud()">
-          <img style="border: 3px solid green;" src="http://connect.soundcloud.com/2/btn-disconnect-l.png">
-        </button>
-      </p>
+    <!--======================= SOUNDMANAGER2 PLAYER GOES HERE! ============================-->
+    <div id="player-box">
+      <div id="player">
 
-<!--       <button type="button" ng-click="getTracks()">Get Tracks</button>
-      <ol id="track-list"></ol> -->
+
+            <button id="play"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+            <button id="shuffle"><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
+            <button id="next"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button>
+            <button id="previous"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></button>
+            <div class="btn-group-vertical">
+            <button id="volume"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button>
+            <button id="volume"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span></button>
+            <button id="volume"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></button>
+            </div>
+
+              <h4 class="progress-label">0:32</h4>
+              <h4 class="progress-label-after">2:17</h4>
+              <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"><span class="sr-only"></span></div>
+              </div>
+
+
+
+      </div>
+    </div>
+    <!--======================= SOUNDMANAGER2 PLAYER ENDS HERE! ============================-->
+
+  </div>
+
+</div>
+
+<!-- States attach here -->
+<ui-view></ui-view>
+
+<!-- Blog posts start here, but should we move to blog.html? -->
+<div class="row content">
+
+    <!--     <div class="col-sm-3 sidenav hidden-xs">
+          <h2>Logo</h2>
+          <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="#section1">Dashboard</a></li>
+            <li><a href="#section2">Age</a></li>
+            <li><a href="#section3">Gender</a></li>
+            <li><a href="#section3">Geo</a></li>
+          </ul><br>
+        </div>
+        <br> -->
+
+
+    <!-- *** SLIDER BEGIN!!! *** -->
+    <div id='slider'>
+      <div id="logo">
+        <img id="logoImg" src="./img/headphones.png"/>
+        <h3 id="logoText">Audio Curator</h3>
+      </div>
+      <ul class="nav nav-pills nav-stacked text-center">
+        <li class="active"><a href="#section1">Dashboard</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <!-- showAuthForm is a variable that toggles between true and false when this div is clicked to hide or show the login/register form -->
+        <li ng-show='showLoginButton' ng-click='showAuthForm = showAuthForm ? false : true'>
+          <a href="#"><span class="glyphicon glyphicon-print"></span> Login</a>
+        </li>
+        <li ng-hide='showLoginButton' ng-click='logout()'>
+          <a href="#"><span class="glyphicon glyphicon-print"></span> Logout</a>
+        </li>
+      </ul><br>
+
+      <div class="auth" ng-show="showAuthForm">
+        <div class="login" ng-show="loginOrRegister">
+          <form ng-submit="login(user); clearLogin()">
+            <h1>Log In Here</h1>
+            <input ng-model='user.email' type="text" placeholder="Email" value="">
+            <input ng-model='user.password' type="password" placeholder="Password" value=""><br>
+            <input class="loginbutton" type="submit" value="Login">
+            <a ng-click='loginOrRegister=false'>Create New Account Instead</a>
+          </form>
+        </div>
+
+        <div class="register" ng-hide="loginOrRegister">
+          <form ng-submit="register(newUser); clearLogin()">
+            <h1>Register Now!</h1>
+            <input ng-model='newUser.displayName' type="text" placeholder="Display Name" value=""><br>
+            <input ng-model='newUser.email' type="text" placeholder="Email" value="">
+            <input ng-model='newUser.password' type="password" placeholder="Password" value=""><br>
+            <input class="registerbutton" type="submit" value="Register & Login">
+            <a ng-click='loginOrRegister=true'>Log In Instead</a>
+          </form>
+        </div>
+      </div>
+
     </div>
 
+     <!-- *** SLIDER END!!! *** -->
 
-    <form class= "active" ng-submit="postBlog(newBlogPost)">
-        <input type="text" ng-model="newBlogPost">
-        <button type = "submit">Submit</button>
-    </form>
+      <div class="col-sm-11 col-sm-offset-1">
+          <div class="row">
 
+            <div class="col-sm-8 col-sm-offset-1">
+              <div class="well" ng-repeat="post in postHistory | orderBy: '-date' | filter: search">
 
-   <h4>{{newBlogPost}}</h4>
+                  <span ng-hide="readytoupdate" ng-dblclick="readytoupdate =true">
+                    <h2><strong>{{post.displaydate}}</strong></h2>
+                    <h3>{{post.body}}</h3>
+                  </span>
 
+                  <form class = "col s6" ng-show="readytoupdate" ng-submit="update(post)">
+                    <div class="input-field col s6">
+                      <input ng-model= "post.body"/>
+                      <input type="submit"/>
+                      <button ng-show="readytoupdate" ng-click="readytoupdate=false">cancel</button>
+                    </div>
+                  </form>
 
+                  <button ng-hide="readytodelete" ng-click="readytodelete=true">delete</button>
+                  <button ng-show="readytodelete" ng-click="readytodelete=false">cancel</button>
+                  <button ng-show="readytodelete" ng-click="remove(post._id)">delete</button>
+              </div>
 
-      Search<input type ="text" ng-model="search"/>
-
-    <!-- <button type="button" ng-click="displayPosts()">Click here to display blog posts.</button> -->
-    <div ng-repeat="post in postHistory | orderBy: '-date' | filter: search">
-
-
-
-        <span ng-hide="readytoupdate" ng-dblclick="readytoupdate =true">
-          <h2><strong>{{post.displaydate}}</strong></h2>
-          <h3>{{post.body}}</h3>
-
-
-
-</span>
-
-        
-        <form class = "col s6" ng-show="readytoupdate" ng-submit="update(post)">
-        <div class="input-field col s6">
-          <input ng-model= "post.body"/>
-          <input type="submit"/>
-          <button ng-show="readytoupdate" ng-click="readytoupdate=false">cancel</button>
+            </div>
+              <div class="col-sm-3">
+                <div class="well">
+                  <p>Text</p>
+                  <p>Text</p>
+                  <p>Text</p>
+                  <p>Text</p>
+                  <p>Text</p>
+                  <p>Text</p>
+                  <p>Text</p>
+                </div>
+              </div>
           </div>
-        </form>
+        </div>
 
-        <button ng-hide="readytodelete" ng-click="readytodelete=true">delete</button>
-        <button ng-show="readytodelete" ng-click="readytodelete=false">cancel</button>
-        <button ng-show="readytodelete" ng-click="remove(post._id)">delete</button>
+      </div>
+    </div><!-- *** End of #Main (Image Background section) *** -->
+
+
+    <!-- *** Footer *** -->
+    <div id="footer" >
+      <div class="container">
+        <div class="row" id="footerPad">
+        </div>
+        <div class="row">
+          <div id="footerContact" class="col-xs-4">
+            <i class="glyphicon glyphicon-search"></i>
+            <input id="search" type="text" name="Search" ng-model="search"/>
+          </div>
+          <div id="footerSocialMedia" class="col-xs-4 text-center">
+            <a href="#"><span class="hb hb-xs"><i class="fa fa-facebook"></i></span></a>
+            <a href="#"><span class="hb hb-xs"><i class="fa fa-twitter"></i></span></a>
+            <a href="#"><span class="hb hb-xs"><i class="fa fa-github-square"></i></span></a>
+            <a href="#"><span class="hb hb-xs"><i class="fa fa-linkedin-square"></i></span></a>
+          </div>
+          <div id="footerNav" class="navbar-nav col-xs-4">
+            <ul>
+              <li class="active"><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <p id="copyright" class="text-center">Copyright &copy; AudioCurator 2016</p>
+      </div>
     </div>
-    <div
-      class="fb-like"
-      data-share="true"
-      data-width="450"
-      data-show-faces="true">
-    </div>
 
 
 
-
-
-	  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
+    <!-- *** JavaScripts *** -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="./dist/jquery.slidereveal.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+    <script src="http://connect.soundcloud.com/sdk.js"></script>
+    <script src="./dist/angular-soundmanager2.js"></script>
+    <script>
+  /*    $("trigger").click {
+      var slider = $('#slider').slideReveal();
+      slider.slideReveal("toggle");
+    }
+  */
+    $("#slider").slideReveal({
+      trigger: $("#trigger"),
+      push: false,
+      overlay: true,
+      overlayColor: "rgba(0,0,0,0.5)",
+      autoEscape: true
+    });
+    </script>
+    <!-- Custom Angular Scripts -->
     <script src="./app.js" type="text/javascript"></script>
     <script src="./controllers/mainCtrl.js" type="text/javascript"></script>
     <script src="./controllers/SoundCloudCtrl.js" type="text/javascript"></script>
     <script src="./controllers/mainServ.js" type="text/javascript"></script>
     <script src="./controllers/SoundCloudServ.js" type="text/javascript"></script>
-    <script src="./controllers/passportService.js" type="text/javascript"></script>
     <script src="./controllers/adminCtrl.js" type="text/javascript"></script>
 
   </body>
