@@ -2,7 +2,7 @@
 /*Setup mainCtrl.js by associating app name using .module method, and passing controller name to .controller method
 Use function argument to inject in the $scope object and the mainServ service file.*/
 
-angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $state, mainServ, passportService) {
+angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $state, mainServ) {
 
   // This will hold an arry of songs that make up or continuous playlist
   $scope.songs = [];
@@ -68,15 +68,16 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $s
     $http.post('/signup', user)
       .then(function(res){
         console.log('/signup res', res);
-        $scope.showLoginButton = false;          // Hide login button and show logout button.
+        $scope.showLoginButton = false;              // Hide login button and show logout button.
         $scope.showAuthForm = false;                 // Hide the auth form
         $state.go('admin');                          // Redirects to admin page after registration/login
       })
   };
 
-  // Set up soundcloud sdk with out app's client ID as assigned by SoundCloud
+
+  // Tell SC to use our client ID
   SC.initialize({
-      client_id: "0d74e749681c280ecda7178908e7c62a"
+      client_id: mainServ.clientId
   });
 
   // This function will be reworked to take in a souncdloud 'share url' (when user makes a post) and return or save the streaming url to the database.
@@ -113,7 +114,7 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $s
   $scope.blogPost;
   $scope.postHistory;
 
-
+  // Moved to adminCtrl, should be deleted after confirmed that implementation is successful.
   $scope.postBlog = function(newPost){
     if (newPost){
 
