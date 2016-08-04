@@ -13,6 +13,8 @@ We hope you enjoy AudioCurator, feel free to tweak the code as you like, add you
 
 -The AudioCurator Team
 
-`what do this do`
+###Fork and clone to your local sytem 
+
+`https://github.com/AudioCurator/AudioCurator.git`
 
  
