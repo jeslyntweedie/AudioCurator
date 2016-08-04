@@ -21,7 +21,7 @@ We hope you enjoy AudioCurator, feel free to tweak the code as you like, add you
   
   
 ## Install dependencies 
-  This is you dev environment as seen in package.json. Go to your terminal and install them locally on your machine. 
+  This is you dev environment as seen in package.json. In your terminal, enter the following and install them locally on your machine. 
   
  `npm install ` 
  
