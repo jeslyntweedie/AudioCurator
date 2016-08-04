@@ -1,7 +1,7 @@
 # AudioCurator
 Open source audio blog platform
 
-##-A passion for music-
+##A passion for music
 
 The main purpose for AudioCurator was to create an easy-to-implement template for anyone who would like to curate, comment on, and post their own selection of music to share with their personal audiences. The template can operate as a standalone blog, or linked to from a personal site. 
 
