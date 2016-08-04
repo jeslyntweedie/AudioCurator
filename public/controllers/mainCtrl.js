@@ -117,6 +117,7 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $s
   // Moved to adminCtrl, should be deleted after confirmed that implementation is successful.
   $scope.postBlog = function(newPost){
     if (newPost){
+      console.log(newPost);
 
       mainServ.postBlog(newPost)
       .then(function(res){
@@ -124,11 +125,12 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $s
         displayPosts();
         $scope.newBlogPost = "";
 
-      })
-    } else {
-      alert("Please enter a blog post");
+      })   
+    } else {                             //Will not allow an empty post to be submitted
+      alert("Please enter a blog post"); 
   }
 };
+
 
 
   $scope.getStream = function(clientId){
@@ -152,7 +154,7 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $s
   //call getPosts when page loads
   displayPosts();
 
-  $scope.remove = function(id) {
+  $scope.remove = function(id) { 
     mainServ.remove(id)
     .then(function(res){
       displayPosts();
