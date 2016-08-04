@@ -83,8 +83,7 @@
 
 </div>
 
-<!-- States attach here -->
-<ui-view></ui-view>
+
 
 <!-- Blog posts start here, but should we move to blog.html? -->
 <div class="row content">
@@ -120,6 +119,7 @@
         </li>
       </ul><br>
 
+      <!-- Login and registration section at bottom of slider -->
       <div class="auth" ng-show="showAuthForm">
         <div class="login" ng-show="loginOrRegister">
           <form ng-submit="login(user); clearLogin()">
@@ -142,15 +142,26 @@
           </form>
         </div>
       </div>
+      <!-- End login / registration section -->
 
     </div>
 
      <!-- *** SLIDER END!!! *** -->
 
+
+
       <div class="col-sm-11 col-sm-offset-1">
           <div class="row">
 
             <div class="col-sm-8 col-sm-offset-1">
+
+
+              <!-- STATES ATTACH HERE! -->        <!-- STATES ATTACH HERE! -->
+              <ui-view></ui-view>
+              <!-- STATES ATTACH HERE! -->        <!-- STATES ATTACH HERE! -->
+
+
+
               <div class="well" ng-repeat="post in postHistory | orderBy: '-date' | filter: search">
 
                   <span ng-hide="readytoupdate" ng-dblclick="readytoupdate =true">

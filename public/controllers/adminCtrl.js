@@ -1,4 +1,4 @@
-angular.module('AudioCurator').controller('adminCtrl', function($scope, $http, $state, mainServ){
+angular.module('AudioCurator').controller('adminCtrl', function($scope, $rootScope, $http, $state, mainServ){
 
   // This function checks if the person accessing /admin is logged in, then saves their information $scope.currentUser or will redirect them. The function is called by ng-init in the admin.html template.
   $scope.checkIfLoggedIn = function(){
@@ -19,7 +19,10 @@ angular.module('AudioCurator').controller('adminCtrl', function($scope, $http, $
       mainServ.postBlog(newPost)
       .then(function(res){
         $scope.blogPost = res;
-        displayPosts();
+        mainServ.getPosts()
+        .then(function(res){
+          $rootScope.postHistory = res;
+        });
         $scope.newBlogPost = "";
 
       })
