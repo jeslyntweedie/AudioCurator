@@ -13,8 +13,10 @@ We hope you enjoy AudioCurator, feel free to tweak the code as you like, add you
 
 -The AudioCurator Team
 
-###Fork and clone to your local sytem 
+### Clone our repo to your local system
 
-`https://github.com/AudioCurator/AudioCurator.git`
+ Start in your terminal and navigate into the folder location you would like to store AudioCurator 
+ 
+  `git clone https://github.com/AudioCurator/AudioCurator.git`
 
  
