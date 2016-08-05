@@ -4419,7 +4419,7 @@ ngSoundManager.filter('humanTime', function () {
 
 ngSoundManager.factory('angularPlayer', ['$rootScope', '$log',
     function($rootScope, $log) {
-        
+
         var currentTrack = null,
             repeat = false,
             autoPlay = true,
@@ -4427,7 +4427,7 @@ ngSoundManager.factory('angularPlayer', ['$rootScope', '$log',
             volume = 90,
             trackProgress = 0,
             playlist = [];
-        
+
         return {
             /**
              * Initialize soundmanager,
@@ -5092,7 +5092,7 @@ ngSoundManager.directive('playAll', ['angularPlayer', '$log',
                         for(var i = 0; i < scope.songs.length; i++) {
                             angularPlayer.addTrack(scope.songs[i]);
                         }
-                        
+
                         if (attrs.play != 'false') {
                             //play first song
                             angularPlayer.play();
@@ -5145,20 +5145,15 @@ ngSoundManager.directive('playPauseToggle', ['angularPlayer',
                 scope.$on('music:isPlaying', function(event, data) {
                     //update html
                     if (data) {
-                        if(typeof attrs.pause != 'undefined') {
-                            element.html(attrs.pause);
-                        } else {
-                            element.html('Pause');
-                        }
+
+                            element.html(`<span class="glyphicon glyphicon-pause" aria-hidden="true"></span>`);
                     } else {
-                        if(typeof attrs.play != 'undefined') {
-                            element.html(attrs.play);
-                        } else {
-                            element.html('Play');
+
+                            element.html(`<span class="glyphicon glyphicon-play" aria-hidden="true"></span>`);
                         }
                     }
-                });
-                
+                );
+
                 element.bind('click', function(event) {
                     if(angularPlayer.isPlayingStatus()) {
                         //if playing then pause
@@ -5166,7 +5161,7 @@ ngSoundManager.directive('playPauseToggle', ['angularPlayer',
                     } else {
                         //else play if not playing
                         angularPlayer.play();
-                        
+
                     }
                 });
             }

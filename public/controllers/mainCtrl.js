@@ -72,25 +72,60 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScop
   });
 
   // This function will be reworked to take in a souncdloud 'share url' (when user makes a post) and return or save the streaming url to the database.
-  SC.get("https://api.soundcloud.com/users/slavetothesound/favorites", {
-      limit: 30
-  }, function(tracks) {
-      for (var i = 0; i < tracks.length; i ++) {
-          SC.stream( '/tracks/' + tracks[i].id, function( sm_object ){
+  // SC.get("https://api.soundcloud.com/users/slavetothesound/favorites", {
+  //     limit: 30
+  // }, function(tracks) {
+  //     for (var i = 0; i < tracks.length; i ++) {
+  //         SC.stream( '/tracks/' + tracks[i].id, function( sm_object ){
+  //           var url = 'https' + sm_object.url.slice(4);
+  //               var track = {
+  //                 id: tracks[i].id,
+  //                 title: tracks[i].title,
+  //                 artist: tracks[i].genre,
+  //                 url: url
+  //             };
+  //             $scope.$apply(function () {
+  //                 $scope.songs.push(track);
+  //                 console.log('favorites tracks', track);
+  //             });
+  //         });
+  //     }
+  // });
 
-            var url = 'https' + sm_object.url.slice(4);
-                var track = {
-                  id: tracks[i].id,
-                  title: tracks[i].title,
-                  artist: tracks[i].genre,
-                  url: url
-              };
-              $scope.$apply(function () {
-                  $scope.songs.push(track);
-              });
-          });
-      }
-  });
+  // var buildPlaylist2 = function(postData){
+  //
+  // };
+
+  var buildPlaylist = function(postData) {
+    console.log('buildPlaylist postData', postData);
+    $scope.songs = [];
+    // for (var i = 0; i < postData.length; i++) {     // This for loop doesn't produce streamable results. Reason unknown.
+    //   console.log('METHOD ONE');
+    //   var track = {
+    //     id: postData[i].trackInfo.soundcloudId,
+    //     title: postData[i].trackInfo.title,
+    //     artist: 'herpderp placeholder',
+    //     url: postData[i].trackInfo.streamURL + '?client_id=' + mainServ.clientId
+    //   };
+    //   $scope.songs.push(track);
+    //   console.log("buildplaylist tracks" + i, track);
+    // }
+    for (var i = 0; i < postData.length; i++) {
+      console.log('METHOD TWO');
+      SC.stream('/tracks/' + postData[i].trackInfo.soundcloudId, function(sm_object){
+        var url = 'https' + sm_object.url.slice(4);
+        var track = {
+          id: postData[i].trackInfo.soundcloudId,
+          title: postData[i].trackInfo.title,
+          artist: 'herpderp placeholder',
+          url: url
+        };
+        $scope.songs.push(track);
+        console.log("buildplaylist2 track" + i, track);
+      })
+    }
+  };
+
 
 
   /////////////// I think these can be removed? ///////////////////
@@ -123,14 +158,15 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScop
 
   // This function gets all the posts from the server so that we can display them on the page
   var displayPosts = function(){
-    mainServ.getPosts()
+    mainServ.getPosts()               // get the posts!
     .then(function(res){
-      $rootScope.postHistory = res;
+      $rootScope.postHistory = res;   // save the posts!
+      buildPlaylist(res);                // build the playlist from post datas!
     });
   };
 
-  // Calls getPosts when page loads so that we have our data right away
-  displayPosts();
+  // Calls getPosts when page loads so that we have our data right away. This function also builds our SoundManager2 playlist after the data has been returned
+  displayPosts()
 
   // Calls the function that is responsible for deleting posts from the database.
   $scope.remove = function(id) {
