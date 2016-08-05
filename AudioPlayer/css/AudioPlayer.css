@@ -1,3 +1,4 @@
+
 #player-box {
 	background-color: #222;
 	border: 10px outset #555;
@@ -37,11 +38,11 @@ button:focus {
 }
 #play {
 	border-radius: 50%;
-	width:55px;
-	height:55px;
+	width:50px;
+	height:50px;
 	position: relative;
 	right: 20px;
-	top: 10px;
+	top: 2px;
 }
 #shuffle {
 	position: relative;
@@ -54,7 +55,7 @@ button:focus {
 	right: 100px;
 	float: right;
 	margin: 0 2px;
-	top: 9px;
+	top: 6px;
 }
 #volume-up, #volume-down {
 	position: relative;
@@ -85,13 +86,13 @@ button:focus {
 .progress-label {
 	float: left;
     position: relative;
-    top: 60px;
+    top: 55px;
     left: 15%;
 }
 .progress-label-after {
     float: right;
     position: relative;
-    top: 60px;
+    top: 55px;
 
 }
 
