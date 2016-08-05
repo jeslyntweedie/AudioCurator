@@ -2,7 +2,7 @@
 /*Setup mainCtrl.js by associating app name using .module method, and passing controller name to .controller method
 Use function argument to inject in the $scope object and the mainServ service file.*/
 
-angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $state, mainServ) {
+angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScope, $http, $state, mainServ) {
 
   // This will hold an arry of songs that make up or continuous playlist
   $scope.songs = [];
@@ -112,7 +112,7 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $s
   $scope.clientStream;
 
   $scope.blogPost;
-  $scope.postHistory;
+  $rootScope.postHistory;
 
   // Moved to adminCtrl, should be deleted after confirmed that implementation is successful.
   $scope.postBlog = function(newPost){
@@ -125,9 +125,9 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $s
         displayPosts();
         $scope.newBlogPost = "";
 
-      })   
+      })
     } else {                             //Will not allow an empty post to be submitted
-      alert("Please enter a blog post"); 
+      alert("Please enter a blog post");
   }
 };
 
@@ -148,13 +148,13 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $http, $s
   var displayPosts = function(){
     mainServ.getPosts()
     .then(function(res){
-      $scope.postHistory = res;
+      $rootScope.postHistory = res;
     })
   }
   //call getPosts when page loads
   displayPosts();
 
-  $scope.remove = function(id) { 
+  $scope.remove = function(id) {
     mainServ.remove(id)
     .then(function(res){
       displayPosts();

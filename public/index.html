@@ -19,30 +19,6 @@
 
 
 
-    <!-- Proof of concept login and register forms here. Feel free to alter them. I copied this (and some styles) from an old "dogs" project -->
-    <div class="auth" ng-show="showAuthForm">
-      <div class="login" ng-show="loginOrRegister">
-        <form ng-submit="login(user); clearLogin()">
-          <h1>Log In Here</h1>
-          <input ng-model='user.email' type="text" placeholder="Email" value="">
-          <input ng-model='user.password' type="password" placeholder="Password" value=""><br>
-          <input class="loginbutton" type="submit" value="Login">
-          <a ng-click='loginOrRegister=false'>Create New Account Instead</a>
-        </form>
-      </div>
-
-      <div class="register" ng-hide="loginOrRegister">
-        <form ng-submit="register(newUser); clearLogin()">
-          <h1>Register Now!</h1>
-          <input ng-model='newUser.displayName' type="text" placeholder="Display Name" value=""><br>
-          <input ng-model='newUser.email' type="text" placeholder="Email" value="">
-          <input ng-model='newUser.password' type="password" placeholder="Password" value=""><br>
-          <input class="registerbutton" type="submit" value="Register & Login">
-          <a ng-click='loginOrRegister=true'>Log In Instead</a>
-        </form>
-      </div>
-    </div>
-
     <!-- Main page begins here -->
     <div id="main" class="container-fluid">
 
@@ -83,8 +59,7 @@
 
 </div>
 
-<!-- States attach here -->
-<ui-view></ui-view>
+
 
 <!-- Blog posts start here, but should we move to blog.html? -->
 <div class="row content">
@@ -108,9 +83,9 @@
         <h3 id="logoText">Audio Curator</h3>
       </div>
       <ul class="nav nav-pills nav-stacked text-center">
-        <li class="active"><a href="#section1">Dashboard</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+        <li class="active"><a href="#section1">Main</a></li>
+        <li><a ui-sref='about'>About</a></li>
+        <li ng-hide='showLoginButton'><a ui-sref='admin'>Admin Panel</a></li>
         <!-- showAuthForm is a variable that toggles between true and false when this div is clicked to hide or show the login/register form -->
         <li ng-show='showLoginButton' ng-click='showAuthForm = showAuthForm ? false : true'>
           <a href="#"><span class="glyphicon glyphicon-print"></span> Login</a>
@@ -120,6 +95,7 @@
         </li>
       </ul><br>
 
+      <!-- Login and registration section at bottom of slider -->
       <div class="auth" ng-show="showAuthForm">
         <div class="login" ng-show="loginOrRegister">
           <form ng-submit="login(user); clearLogin()">
@@ -142,15 +118,26 @@
           </form>
         </div>
       </div>
+      <!-- End login / registration section -->
 
     </div>
 
      <!-- *** SLIDER END!!! *** -->
 
+
+
       <div class="col-sm-11 col-sm-offset-1">
           <div class="row">
 
             <div class="col-sm-8 col-sm-offset-1">
+
+
+              <!-- STATES ATTACH HERE! -->        <!-- STATES ATTACH HERE! -->
+              <ui-view></ui-view>
+              <!-- STATES ATTACH HERE! -->        <!-- STATES ATTACH HERE! -->
+
+
+
               <div class="well" ng-repeat="post in postHistory | orderBy: '-date' | filter: search">
 
                   <span ng-hide="readytoupdate" ng-dblclick="readytoupdate =true">
