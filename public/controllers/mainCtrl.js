@@ -7,6 +7,9 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScop
   // This will hold an arry of songs that make up or continuous playlist
   $scope.songs = [];
 
+  // This holds all of the post data that we have requested from teh server
+  $rootScope.postHistory;
+
   // This variable will hold info about the currently logged in user and will be falsy if no user is been logged in.
   $scope.loggedInUser = {};
 
@@ -18,7 +21,6 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScop
 
   // Toggles the value of the showAuthForm variable to display or hide the login form.
   $scope.toggleLoginView = function() {
-    console.log("showAuthForm value", $scope.showAuthForm)
     $scope.showAuthForm = $scope.showAuthForm ? false : true;
   };
 
@@ -33,23 +35,12 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScop
 
   // This function calls /logout to log out the current user and clear session data.
   $scope.logout = function() {
-    console.log('logout now!');
     $http.get('/logout')
       .then(function(res){
-        console.log('logged out!');
         $scope.showLoginButton = true;               // Show login button and hide logout button.
         $scope.loggedInUser = {};     // Set loggedInUser to empty object (will also cause login button to display again instead of logout).
         $state.go('home');
       })
-  };
-
-  // This function will get info about the logged in user if we need it.
-  $scope.getUser = function () {
-    mainServ.getUser()
-    .then(function(res){
-      console.log('Got user info: ', res);
-      $scope.user = res;
-    });
   };
 
   // This function initiates the login process when the login form is submitted.
@@ -101,6 +92,8 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScop
       }
   });
 
+
+  /////////////// I think these can be removed? ///////////////////
   $scope.name = mainServ.name;
 
   $scope.readytodelete = false;
@@ -111,62 +104,48 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScop
 
   $scope.clientStream;
 
-  $scope.blogPost;
-  $rootScope.postHistory;
-
-  // Moved to adminCtrl, should be deleted after confirmed that implementation is successful.
-  $scope.postBlog = function(newPost){
-    if (newPost){
-      console.log(newPost);
-
-      mainServ.postBlog(newPost)
-      .then(function(res){
-        $scope.blogPost = res;
-        displayPosts();
-        $scope.newBlogPost = "";
-
-      })
-    } else {                             //Will not allow an empty post to be submitted
-      alert("Please enter a blog post");
-  }
-};
-
-
-
   $scope.getStream = function(clientId){
-
     mainServ.getClientStream(clientId)
+    .then(function(res){
+      $scope.clientStream = res;
+    });
+  };
+  //////////////////////////////////////////////////////////////////
 
-  .then(function(res){
+  // This function will get info about the logged in user if we need it.
+  // $scope.getUser = function () {
+  //   mainServ.getUser()
+  //   .then(function(res){
+  //     $scope.user = res;
+  //   });
+  // };
 
-    $scope.clientStream = res;
 
-  })
-
-  }
-
+  // This function gets all the posts from the server so that we can display them on the page
   var displayPosts = function(){
     mainServ.getPosts()
     .then(function(res){
       $rootScope.postHistory = res;
-    })
-  }
-  //call getPosts when page loads
+    });
+  };
+
+  // Calls getPosts when page loads so that we have our data right away
   displayPosts();
 
+  // Calls the function that is responsible for deleting posts from the database.
   $scope.remove = function(id) {
     mainServ.remove(id)
     .then(function(res){
       displayPosts();
-    })
+    });
+  };
 
-  }
-
+  // This calls the function that is used to edit posts that already exist in the database.
   $scope.update =function(post) {
     mainServ.update(post)
     .then(function(res){
       displayPosts();
-    })
-  }
+    });
+  };
 
 });
