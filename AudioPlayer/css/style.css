@@ -4,6 +4,11 @@ html, body {
   height: 100%;
   width: 100%;
   background-color: #222;
+  font-family: 'Comfortaa', sans-serif;
+}
+h1 {
+  font-weight: 700;
+  display: inline;
 }
 
 .nav {
@@ -17,31 +22,71 @@ html, body {
 #header {
   width: 100%;
   height: max-content;
-  background-color: #fff;
+  background-color: #222;
   border-bottom: 2px solid #00ffff;
 }
-
 #trigger {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 100%;
+  margin-left: -55px;
+  cursor: pointer;
+  background-color: #222;
+  border-radius: 4px;
+  z-index: 10;
+}
+#trigger:hover, #trigger:focus {
+  margin-left: -40px;
+}
+
+#menu {
+  position: absolute;
+  top: 140px;
+  left: 0;
+  cursor: pointer;
   background-color: #222;
   color: #fff;
-  border-radius: 50%;
-  padding: 10px 5px 10px 15px;
-  margin-left: -30px;
+  border-radius: 40%;
+  padding: 10px 5px 10px 20px;
+  margin-left: 30px;
   float: left;
+  font-size: 30px;
+}
+#menu:hover, #menu:focus {
+  color: #00ffff;
+  margin-left: 45px;
+}
+
+span#brand {
+  display: inline;
 }
 #blog-logo {
   width: 120px;
   height: 120px;
-  padding: 10px;
-  margin: 0 auto;
+  margin: 10px auto;
 }
+#blog-title {
+  width: max-content;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  padding: 0;
+  padding-bottom: 10px;
+  text-shadow: 2px 2px 8px #00ffff;
+  white-space: nowrap; /*Do not seperate title*/
+}
+#slider {
+  border: 2px solid #00ffff;
+  border-radius: 4px;
+  margin-left: -10px;
+}
+
 #blog-logo-slider {
   width: 100px;
   height: 100px;
   margin-bottom: 20px;
-}
-#blog-title {
-  float: right;
 }
 
 #slider {
@@ -57,7 +102,8 @@ html, body {
   background-color: transparent;
 }
 #main {
-  background: url(../band.JPG) no-repeat center center fixed;
+  background: url(../images/band.JPG) no-repeat center center fixed;
+/*  background: url(../images/red_guitar.jpeg) no-repeat center center fixed;*/
   background-color: #222;
   display: table;
   height: 100%;
@@ -73,21 +119,18 @@ html, body {
   border: 2px solid #00ffff;
 }
 .well {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
-
-
-
 #footer {
-  margin-top: 30px;
+  line-height: 2;
+  font-size: 14px;
+  padding-top: 30px;
+  border-top: 2px solid #00ffff;
   position: absolute;
   width: 100%;
   background-color: #222;
   color: #fff;
   z-index: 10;
-}
-#footerPad {
-  height: 30px;
 }
 #footerNav ul li {
   background-color: #222;
@@ -95,6 +138,7 @@ html, body {
 }
 #footerNav ul li a {
   color: #fff;
+  background-color: #222;
 }
 #footerNav ul li a:hover {
   color: #00ffff;
@@ -129,8 +173,9 @@ html, body {
   border-radius: 4px;
   background-color: #fff;
 }
-.nav-pills>li>a {
+.nav-pills>li>a, .nav-pills>li>a:hover {
   padding: 2px 5px;
+  border-radius: 4px;
 }
 a {
     color: #222;
