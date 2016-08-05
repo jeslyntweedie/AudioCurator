@@ -20,11 +20,15 @@
 
 
     <!-- Main page begins here -->
+    <div id="trigger"><span id="menu" class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></div>
+    <div id="header" class="container-fluid">
+      <span id="brand"><img id="blog-logo" src="./img/headphones.png"/><h1 id="blog-title">Audio Curator</h1></span>
+    </div>
     <div id="main" class="container-fluid">
-
+      <div id="sm-spacer">
+      </div>
       <div class="row">
         <div class="col-sm-2">
-         <h2><span id="trigger" class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></h2>
         </div>
         <div class="col sm-10 col-sm-offset-2">
 
@@ -32,31 +36,41 @@
     <div id="player-box">
       <div id="player">
 
+        <!-- init soundManager2 player -->
+        <sound-manager></sound-manager>
 
-            <button id="play"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+            <div id="track-name"><h4 id="track-name">Now Playing: {{ currentPlaying.title }} ({{ currentPostion }} / {{ currentDuration }})</h4></div>
+
+            <!-- Play/Pause button and shuffle button -->
+            <!-- To change Play or Pause icons you will have to see line 5149 in the angular-soundmanager2.js file -->
+            <button play-pause-toggle data-play="Play!" data-pause="Pause!" id="play"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
             <button id="shuffle"><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
-            <button id="next"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button>
-            <button id="previous"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></button>
-            <div class="btn-group-vertical">
-            <button id="volume"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button>
-            <button id="volume"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span></button>
-            <button id="volume"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></button>
+
+            <!-- Seek buttons -->
+            <button next-track id="next"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button>
+            <button prev-track id="previous"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></button>
+
+            <!-- Volume buttons -->
+            <button music-volume data-type="increase" id="volume-up"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+              <span id="vol-icon" class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
+            <button music-volume data-type="decrease" id="volume-down"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+
+            <!-- Bug! The currentPostion (sic) and/or currentDuration push the play button to the left until a song starts playing -->
+            <h5 class="progress-label">{{ currentPostion }}</h5>
+            <h5 class="progress-label-after">{{ currentDuration }}</h5>
+
+            <!-- Seekbar -->
+            <div class="progress seekBase" seek-track>
+              <div class="progress-bar progress-bar-info seekLoad" ng-style="{width : ( progress + '%' ) }" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"><span class="sr-only"></span></div>
             </div>
-
-              <h4 class="progress-label">0:32</h4>
-              <h4 class="progress-label-after">2:17</h4>
-              <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"><span class="sr-only"></span></div>
-              </div>
-
-
 
       </div>
     </div>
     <!--======================= SOUNDMANAGER2 PLAYER ENDS HERE! ============================-->
 
+    <div id="lg-spacer">
+    </div>
   </div>
-
 </div>
 
 
@@ -77,13 +91,15 @@
 
 
     <!-- *** SLIDER BEGIN!!! *** -->
-    <div id='slider'>
+    <div id='slider' class="text-center">
+      <div id="sm-spacer">
+      </div>
       <div id="logo">
-        <img id="logoImg" src="./img/headphones.png"/>
+        <img id="blog-logo-slider" src="./img/headphones.png"/>
         <h3 id="logoText">Audio Curator</h3>
       </div>
       <ul class="nav nav-pills nav-stacked text-center">
-        <li class="active"><a href="#section1">Main</a></li>
+        <li class="active"><a href="#">Main</a></li>
         <li><a ui-sref='about'>About</a></li>
         <li ng-hide='showLoginButton'><a ui-sref='admin'>Admin Panel</a></li>
         <!-- showAuthForm is a variable that toggles between true and false when this div is clicked to hide or show the login/register form -->
@@ -94,6 +110,8 @@
           <a href="#"><span class="glyphicon glyphicon-print"></span> Logout</a>
         </li>
       </ul><br>
+      <button id="close"><span class="glyphicon glyphicon-remove"></span></button>
+
 
       <!-- Login and registration section at bottom of slider -->
       <div class="auth" ng-show="showAuthForm">
@@ -141,8 +159,10 @@
               <div class="well" ng-repeat="post in postHistory | orderBy: '-date' | filter: search">
 
                   <span ng-hide="readytoupdate" ng-dblclick="readytoupdate =true">
-                    <h2><strong>{{post.displaydate}}</strong></h2>
-                    <h3>{{post.body}}</h3>
+                    <h2><strong>{{post.displaydate}} - {{post.trackInfo.title}}</strong></h2>
+                    <img ng-if='post.trackInfo.art' src={{post.trackInfo.art}}>
+                    <h5>{{post.body}}</h5><h6> - {{post.postedBy}}<h6>
+                    <a href={{post.trackInfo.shareURL}}>Listen on SoundCloud</a>
                   </span>
 
                   <form class = "col s6" ng-show="readytoupdate" ng-submit="update(post)">
@@ -174,18 +194,21 @@
         </div>
 
       </div>
+
+      <div id="lg-spacer">
+      </div>
+      <div id="lg-spacer">
+      </div>
     </div><!-- *** End of #Main (Image Background section) *** -->
 
 
     <!-- *** Footer *** -->
     <div id="footer" >
       <div class="container">
-        <div class="row" id="footerPad">
-        </div>
         <div class="row">
           <div id="footerContact" class="col-xs-4">
             <i class="glyphicon glyphicon-search"></i>
-            <input id="search" type="text" name="Search" ng-model="search"/>
+            <input id="search" type="text" name="Search"/>
           </div>
           <div id="footerSocialMedia" class="col-xs-4 text-center">
             <a href="#"><span class="hb hb-xs"><i class="fa fa-facebook"></i></span></a>
@@ -195,9 +218,9 @@
           </div>
           <div id="footerNav" class="navbar-nav col-xs-4">
             <ul>
-              <li class="active"><a href="#home">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li class="active"><a ui-sref='home'>Home</a></li>
+              <li><a ui-sref='about'>About</a></li>
+              <li><a ui-sref='contact'>Contact</a></li>
             </ul>
           </div>
         </div>

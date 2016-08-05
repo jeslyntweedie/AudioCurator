@@ -23,11 +23,13 @@ angular.module('AudioCurator').controller('adminCtrl', function($scope, $rootSco
       newPost.postedBy = $scope.currentUser;          // Record the post's author
       mainServ.resolveShareURLtoAPI(newPost.trackInfo.shareUrl) // This makes the HTTP request to soundcloud's API for data based on shareUrl
       .then(function(res){                            // This section grabs the data we want to keep from soundcloud
+        console.log('sc res', res);
         newPost.trackInfo = {
           art: res.data.artwork_url,                  // Artwork because pictures are pretty!
           title: res.data.title,                      // Title so people know what they are hearing. Soundcloud usually includes artist with title.
           streamURL: res.data.stream_url,             // This is what we will feed SoundManager2 for the audio stream
-          apiURL: res.data.uri                        // The direct API url in case we need to grab info from soundcloud again someday
+          apiURL: res.data.uri,                       // The direct API url in case we need to grab info from soundcloud again someday
+          soundcloudId: res.data.id
         };
         mainServ.postBlog(newPost);                   // Data is prepared! Now POST it to the database!
       }).then(function(){
@@ -44,52 +46,26 @@ angular.module('AudioCurator').controller('adminCtrl', function($scope, $rootSco
 
 
 
-
-  // prepare track data for saving
-
-
-  // Testing functions, delete later.
-  // $scope.shareUrl = 'https://soundcloud.com/thedeadstrange/bones';
-  // console.log(mainServ.resolveShareURLtoAPI($scope.shareUrl));
-  // Example of a working soundcloud stream url for reference:
-  // https://api.soundcloud.com/tracks/259010344/stream?client_id=0d74e749681c280ecda7178908e7c62a
-
-
-  // SC.get($scope.shareUrl, function(trackData) {
-  //         SC.stream( '/tracks/' + trackData.id, function( sm_object ){
+  // This function can be deleted
+  // SC.get("https://api.soundcloud.com/users/slavetothesound/favorites", {
+  //     limit: 30
+  // }, function(tracks) {
+  //     for (var i = 0; i < tracks.length; i ++) {
+  //         SC.stream( '/tracks/' + tracks[i].id, function( sm_object ){
+  //
   //           var url = 'https' + sm_object.url.slice(4);
   //               var track = {
-  //                 id: trackData.id,
-  //                 title: trackData.title,
-  //                 artist: trackData.genre,
+  //                 id: tracks[i].id,
+  //                 title: tracks[i].title,
+  //                 artist: tracks[i].genre,
   //                 url: url
   //             };
   //             $scope.$apply(function () {
   //                 $scope.songs.push(track);
+  //                 // console.log(url);
   //             });
   //         });
+  //     }
   // });
-
-  // This function will be reworked to take in a souncdloud 'share url' (when user makes a post) and return or save the streaming url to the database.
-  SC.get("https://api.soundcloud.com/users/slavetothesound/favorites", {
-      limit: 30
-  }, function(tracks) {
-      for (var i = 0; i < tracks.length; i ++) {
-          SC.stream( '/tracks/' + tracks[i].id, function( sm_object ){
-
-            var url = 'https' + sm_object.url.slice(4);
-                var track = {
-                  id: tracks[i].id,
-                  title: tracks[i].title,
-                  artist: tracks[i].genre,
-                  url: url
-              };
-              $scope.$apply(function () {
-                  $scope.songs.push(track);
-                  // console.log(url);
-              });
-          });
-      }
-  });
 
 });

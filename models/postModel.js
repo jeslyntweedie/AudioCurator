@@ -10,7 +10,8 @@ var postModel = new mongoose.Schema({
       title: {type: String},              // Track title. Soundcloud Often includes Artist
       streamURL: {type: String},          // URL to stream from
       apiURL: {type: String},             // In case we want more of SCs data later
-      art: {type: String}                 // For displaying album art
+      art: {type: String},                // For displaying album art
+      soundcloudId: {type: String}
     }
 });
 
