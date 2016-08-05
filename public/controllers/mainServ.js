@@ -16,35 +16,32 @@ angular.module("AudioCurator").service("mainServ", function($http) {
 
 	this.postBlog = function(newPost){
 		var today = "[" + new Date().toISOString().slice(0, 10) + "] - " + new Date().toISOString().slice(11, 19);
-		//This creates a string of date and time, down to seconds, so that posts can be ordered chronologically 
-		//so the newest post is posted at the top 
+		//This creates a string of date and time, down to seconds, so that posts can be ordered chronologically
+		//so the newest post is posted at the top
 		var worddate = (new Date()).toString().slice(4, 15);
-		//This takes the created string, and only displays the day, date, and month so that we aren't getting 
+		//This takes the created string, and only displays the day, date, and month so that we aren't getting
 		//time, seconds, and milliseconds added to our blog posts
-	  	var post = {
-	  		body: newPost,
-	  		date: today,
-	  		displaydate: worddate
-	  	};
-	  	console.log(post);
-	  	return $http({
-	  		method: "POST",
-	  		url: "/post",
-	  		data: post
-	  	}).then(function(res){
-	  		console.log(res);
-	  		return res.data.body;
-	  	})
+		newPost.date = today;
+  	newPost.displaydate = worddate;
+
+  	console.log('finalized post just before $http', newPost);
+  	return $http({
+  		method: "POST",
+  		url: "/post",
+  		data: newPost
+  	}).then(function(res){
+  		console.log('$http response', res);
+  		return res;
+  	})
 
 	};
 
 	this.getPosts = function() {
-
-	  	return $http({
+  	return $http({
 			method: "GET",
 			url: "/post"
 		}).then(function(res){
-			console.log(res.data);
+			console.log('getPosts got posts:', res.data);
 			return res.data;
 		})
 
@@ -71,18 +68,28 @@ angular.module("AudioCurator").service("mainServ", function($http) {
 		})
 	};
 
+	// This function will resolve a soundcloud share URL to it's respective API url which gives us access to it's ID number and streaming URL.
+  this.resolveShareURLtoAPI = function(shareUrl){
+    return $http({
+      method: 'GET',
+      url: 'http://api.soundcloud.com/resolve.json?url=' + shareUrl + "&client_id=" + this.clientId
+    });
+  };
 
-	// These user related functions are commented because they are not in use, but the endpoints have been setup for them to work if we need them.
 
+	// This function gets info about the logged in user. Currently just used to find the displayName of a user when they are saving a new post.
 	// this.getUser = function (user) {
 	//   return $http ({
 	//     method: "GET",
 	//     url: '/user/me'
 	//   }).then(function (response) {
-	//     console.log('passportService.getUser', response.data);
+	//     console.log('mainServ.getUser', response.data);
 	//     return response.data;
 	//   });
 	// };
+
+	// These user related functions are commented because they are not in use, but the endpoints have been setup for them to work if we need them.
+
 	// this.getUsers = function () {
 	//   return $http ({
 	//     method: "GET",
