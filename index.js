@@ -19,12 +19,13 @@ require('./passport/passport')(passport);
 
 // ---------------- MIDDLEWARE ----------------
 // Initialize the middleware. These will perform their given tasks on each request and response that passes through the server.
-app.use(session(config));         // Set session secret
+/*app.use(session(config));  */       // Set session secret
+app.use(session({ secret: config.secret , cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());   // Initialize Passport
 app.use(passport.session());      // Configure session through passport. Starts session on login
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public')); // Makes all of our files in the /public directory available to the internet
 
 
