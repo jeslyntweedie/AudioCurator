@@ -1,6 +1,7 @@
 
 /* general styles */
 html, body {
+  box-sizing: content-box;
   height: 100%;
   width: 100%;
   background-color: #222;
@@ -38,7 +39,7 @@ h1 {
   z-index: 10;
 }
 #trigger:hover, #trigger:focus {
-  margin-left: -40px;
+  margin-left: -48px;
 }
 
 #menu {
@@ -52,11 +53,10 @@ h1 {
   padding: 10px 5px 10px 20px;
   margin-left: 30px;
   float: left;
-  font-size: 30px;
+  font-size: 35px;
 }
 #menu:hover, #menu:focus {
   color: #00ffff;
-  margin-left: 45px;
 }
 
 span#brand {
@@ -78,6 +78,7 @@ span#brand {
   white-space: nowrap; /*Do not seperate title*/
 }
 #slider {
+  background-color: #222;
   border: 2px solid #00ffff;
   border-radius: 4px;
   margin-left: -10px;
@@ -87,10 +88,6 @@ span#brand {
   width: 100px;
   height: 100px;
   margin-bottom: 20px;
-}
-
-#slider {
-  background-color: #222;
 }
 
 #sm-spacer {
