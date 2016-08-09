@@ -39,15 +39,15 @@
         <!-- init soundManager2 player -->
         <sound-manager></sound-manager>
 
-            <div id="track-name"><h4 id="track-name">Now Playing: {{ currentPlaying.title }} ({{ currentPostion }} / {{ currentDuration }})</h4></div>
+            <div id="track-name"><h4 id="track-name">Now Playing: {{currentTitle}} by Undefined ({{ currentPostion }} / {{ currentDuration }})</h4></div>
 
             <!-- Play/Pause button and shuffle button -->
             <!-- To change Play or Pause icons you will have to see line 5149 in the angular-soundmanager2.js file -->
-            <button play-pause-toggle data-play="Play!" data-pause="Pause!" id="play"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+            <button play-pause-toggle data-play="Play!" data-pause="Pause!" id="play" ng-click="loopId()"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
             <button id="shuffle"><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
 
             <!-- Seek buttons -->
-            <button next-track id="next"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button>
+            <button next-track id="next"><span class="glyphicon glyphicon-step-forward" aria-hidden="true" "></span></button>
             <button prev-track id="previous"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></button>
 
             <!-- Volume buttons -->
@@ -56,7 +56,7 @@
             <button music-volume data-type="decrease" id="volume-down"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
 
             <!-- Bug! The currentPostion (sic) and/or currentDuration push the play button to the left until a song starts playing -->
-            <h5 class="progress-label">{{ currentPostion }}</h5>
+            <h5 class="progress-label">{{ currentPostion || "00:00"}}</h5>
             <h5 class="progress-label-after">{{ currentDuration }}</h5>
 
             <!-- Seekbar -->
@@ -156,7 +156,7 @@
 
 
 
-              <div class="well" ng-repeat="post in postHistory | orderBy: '-date' | filter: search">
+              <div class="well" ng-repeat="post in postHistory| filter: search">
 
                   <span ng-hide="readytoupdate" ng-dblclick="readytoupdate =true">
                     <h2><strong>{{post.displaydate}} - {{post.trackInfo.title}}</strong></h2>

@@ -4559,8 +4559,10 @@ ngSoundManager.factory('angularPlayer', ['$rootScope', '$log',
             },
             currentTrackData: function() {
                 var trackId = this.getCurrentTrack();
+                console.log(trackId);
                 var currentKey = this.isInArray(playlist, trackId);
-                return playlist[currentKey];
+                // return playlist[currentKey];
+                return trackId;
             },
             getPlaylist: function(key) {
                 if(typeof key === 'undefined') {
@@ -4649,6 +4651,7 @@ ngSoundManager.factory('angularPlayer', ['$rootScope', '$log',
                     }
                     trackToPlay = soundManager.soundIDs[0];
                     this.initPlayTrack(trackToPlay);
+                    this.setCurrentTrack(trackToPlay);
                 } else {
                     trackToPlay = this.getCurrentTrack();
                     this.initPlayTrack(trackToPlay, true);
@@ -4680,6 +4683,7 @@ ngSoundManager.factory('angularPlayer', ['$rootScope', '$log',
                 }
                 var currentTrackKey = this.getIndexByValue(soundManager.soundIDs, this.getCurrentTrack());
                 var nextTrackKey = +currentTrackKey + 1;
+                console.log(currentTrackKey);
                 var nextTrack = soundManager.soundIDs[nextTrackKey];
                 if(typeof nextTrack !== 'undefined') {
                     this.playTrack(nextTrack);
@@ -4835,6 +4839,7 @@ ngSoundManager.directive('soundManager', ['$filter', 'angularPlayer',
                     });
                 });
                 scope.playlist = angularPlayer.getPlaylist(); //on load
+
                 scope.$on('player:playlist', function(event, data) {
                     scope.$apply(function() {
                         scope.playlist = data;

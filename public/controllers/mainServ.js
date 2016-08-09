@@ -10,11 +10,14 @@ So when creating function variables, be sure to use the 'this' keyword. */
 
 angular.module("AudioCurator").service("mainServ", function($http) {
 
+
 	this.userName = "chalice";
 	this.clientId = '93b670379c03c10be221ed90ee118f93';
   this.clientSecret = '87b74a7dd855b8cb9ec10a533be05848';
 
+
 	this.postBlog = function(newPost){
+		console.log(newPost);
 		var today = "[" + new Date().toISOString().slice(0, 10) + "] - " + new Date().toISOString().slice(11, 19);
 		//This creates a string of date and time, down to seconds, so that posts can be ordered chronologically
 		//so the newest post is posted at the top
@@ -34,6 +37,16 @@ angular.module("AudioCurator").service("mainServ", function($http) {
   		return res;
   	})
 
+	};
+
+	this.getMe = function(){
+		return $http({
+			method: "GET",
+			url:"/user/me"
+		}).then(function(response){
+			console.log(response)
+			return response;
+		})
 	};
 
 	this.getPosts = function() {

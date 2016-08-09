@@ -14,7 +14,7 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScop
   $scope.loggedInUser = {};
 
   // Variable for showing or hiding login button. Logout button should display when this is false.
-  $scope.showLoginButton = $scope.loggedInUser === {} ? true : false;
+  $scope.showLoginButton = $scope.loggedInUser === {} ? false : true;
 
   // This variable controls whether the Login/Register form is displayed.
   $scope.showAuthForm = false;
@@ -47,7 +47,8 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScop
   $scope.login = function(user) {
     $http.post('/login', user)
       .then(function(res){
-        $scope.loggedInUser = res.config.data.email; // Sets loggedInUser to email of logged in user. Need to fix this to include displayName.
+        $scope.loggedInUser = res.config.data.email;
+        $scope.getMe(); // Sets loggedInUser to email of logged in user. Need to fix this to include displayName.
         $scope.showLoginButton = false;          // Hide login button and show logout button.
         $scope.showAuthForm = false;                 // Hide the auth form.
         $state.go('admin');                          // Redirects to admin page after login.
@@ -59,7 +60,8 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScop
     $http.post('/signup', user)
       .then(function(res){
         console.log('/signup res', res);
-        $scope.showLoginButton = false;              // Hide login button and show logout button.
+        $scope.showLoginButton = false; 
+        $scope.getMe();             // Hide login button and show logout button.
         $scope.showAuthForm = false;                 // Hide the auth form
         $state.go('admin');                          // Redirects to admin page after registration/login
       })
@@ -111,17 +113,18 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScop
     //   console.log("buildplaylist tracks" + i, track);
     // }
     for (var i = 0; i < postData.length; i++) {
-      console.log('METHOD TWO');
       SC.stream('/tracks/' + postData[i].trackInfo.soundcloudId, function(sm_object){
         var url = 'https' + sm_object.url.slice(4);
         var track = {
           id: postData[i].trackInfo.soundcloudId,
           title: postData[i].trackInfo.title,
-          artist: 'herpderp placeholder',
+          artist: postData[i].trackInfo.artist,
           url: url
         };
-        $scope.songs.push(track);
-        console.log("buildplaylist2 track" + i, track);
+        $scope.songs.unshift(track);
+        // console.log("buildplaylist2 track" + i, track);
+        $scope.artist = track.artist;
+        $scope.title = track.title;
       })
     }
   };
@@ -160,7 +163,7 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScop
   var displayPosts = function(){
     mainServ.getPosts()               // get the posts!
     .then(function(res){
-      $rootScope.postHistory = res;   // save the posts!
+      $rootScope.postHistory = res.reverse();   // save the posts!
       buildPlaylist(res);                // build the playlist from post datas!
     });
   };
@@ -183,5 +186,30 @@ angular.module("AudioCurator").controller("mainCtrl", function($scope, $rootScop
       displayPosts();
     });
   };
+
+  var loopId= function(){
+    for (var i = 0;i < $scope.songs.length;i++){
+      if($scope.currentPlaying){
+      var slicedId = parseInt($scope.currentPlaying.split('/',[3])[2].split('-',[1])[0]);
+        if(slicedId == $scope.songs[i].id){
+          console.log("we made it")
+          $scope.currentTitle = $scope.songs[i].title;
+          $scope.currentArtist = $scope.songs[i].artist;
+        }
+      }
+    }
+  };
+  setInterval(function(){
+    loopId();
+  },1000)
+  
+  $scope.getMe = function(){
+    mainServ.getMe()
+    .then(function(response){
+      $scope.loggedInUser = response;
+
+    })
+  };
+  
 
 });

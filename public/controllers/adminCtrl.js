@@ -25,6 +25,7 @@ angular.module('AudioCurator').controller('adminCtrl', function($scope, $rootSco
       .then(function(res){                            // This section grabs the data we want to keep from soundcloud
         console.log('sc res', res);
         newPost.trackInfo = {
+          artist: res.data.artist,
           art: res.data.artwork_url,                  // Artwork because pictures are pretty!
           title: res.data.title,                      // Title so people know what they are hearing. Soundcloud usually includes artist with title.
           streamURL: res.data.stream_url,             // This is what we will feed SoundManager2 for the audio stream
